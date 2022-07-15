@@ -12,7 +12,7 @@ ct_dirs = glob('/home/denis/samba_share/katrins_data/*/*ct_from*')
 pet_dirs = glob('/home/denis/samba_share/katrins_data/*/*pet_from*')
 
 GTV = glob('/home/denis/samba_share/katrins_data/*/GTV*')
-print("GTV is: "len(GTV))
+print("GTV is: ",len(GTV))
 
 for f in range(len(GTV)):
     gtv = read_image(gtv[f])
