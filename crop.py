@@ -11,7 +11,7 @@ def read_image(path):
 ct_dirs = glob('/home/denis/samba_share/katrins_data/*/*ct_from*')
 pet_dirs = glob('/home/denis/samba_share/katrins_data/*/*pet_from*')
 
-GTV = glob('/home/denis/samba_share/katrins_data/*/GTV*')
+GTV = glob('/home/denis/samba_share/katrins_data/*/GTV.nii.gz')
 print("GTV is: ",len(GTV))
 
 for f in range(len(GTV)):
