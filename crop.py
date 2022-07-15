@@ -15,7 +15,8 @@ pet_dirs = glob('/home/denis/samba_share/katrins_data/*/*pet_from*')
 
 
 for f in range(len(ct_dirs)):
-    print(ct_dirs[f])
+    print(ct_dirs[f].rsplit('/', 1))
+
   
 
   
