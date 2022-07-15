@@ -12,21 +12,57 @@ ct_dirs = glob('/home/denis/samba_share/katrins_data/*/*ct_from*')
 pet_dirs = glob('/home/denis/samba_share/katrins_data/*/*pet_from*')
 
 
-for f in range (len(ct_dirs)):
-    print('"'+ ct_dirs[f]+ '"')
+
+OK_dirs = ["/home/denis/samba_share/katrins_data/6747", 
+"/home/denis/samba_share/katrins_data/6823",
+"/home/denis/samba_share/katrins_data/7729",
+"/home/denis/samba_share/katrins_data/7660",
+"/home/denis/samba_share/katrins_data/9515",
+"/home/denis/samba_share/katrins_data/9649",
+"/home/denis/samba_share/katrins_data/9777",
+"/home/denis/samba_share/katrins_data/9930",
+"/home/denis/samba_share/katrins_data/11386",
+"/home/denis/samba_share/katrins_data/17496"]
+
+OneS_dirs = ["/home/denis/samba_share/katrins_data/8935",
+"/home/denis/samba_share/katrins_data/9610",
+"/home/denis/samba_share/katrins_data/9937",
+"/home/denis/samba_share/katrins_data/10033",
+"/home/denis/samba_share/katrins_data/10157",
+"/home/denis/samba_share/katrins_data/10188",
+"/home/denis/samba_share/katrins_data/11061",
+"/home/denis/samba_share/katrins_data/11086",
+"/home/denis/samba_share/katrins_data/11210",
+"/home/denis/samba_share/katrins_data/11240", # careful here PET 2.145374449339207
+"/home/denis/samba_share/katrins_data/11576",
+"/home/denis/samba_share/katrins_data/11663",
+"/home/denis/samba_share/katrins_data/13271",
+"/home/denis/samba_share/katrins_data/13282",
+"/home/denis/samba_share/katrins_data/13503",
+"/home/denis/samba_share/katrins_data/13526",
+"/home/denis/samba_share/katrins_data/13576",
+"/home/denis/samba_share/katrins_data/13648",
+"/home/denis/samba_share/katrins_data/13777",
+"/home/denis/samba_share/katrins_data/14034",
+"/home/denis/samba_share/katrins_data/14049",
+"/home/denis/samba_share/katrins_data/14401",
+"/home/denis/samba_share/katrins_data/14800",
+"/home/denis/samba_share/katrins_data/14809",
+"/home/denis/samba_share/katrins_data/15174",
+"/home/denis/samba_share/katrins_data/16742"]
 
 
+Odd_dirs = ["/home/denis/samba_share/katrins_data/10147",
+"/home/denis/samba_share/katrins_data/10967",
+"/home/denis/samba_share/katrins_data/11432", # PET 3.0 
+"/home/denis/samba_share/katrins_data/11749",
+"/home/denis/samba_share/katrins_data/13544",
+"/home/denis/samba_share/katrins_data/17775",
+"/home/denis/samba_share/katrins_data/18103"]
 
 
-#for f in range(len(ct_dirs)):
-  #  name = (ct_dirs[f].rsplit('/', 1)[-1])
-   # first = name[8:12]
-    #second = name [16:19]
-    #print (first)
-    #print ("s ",second)
-
-
-
+for f in range(len(OK_dirs)):
+print(OK_dirs[f])
 
 
   
