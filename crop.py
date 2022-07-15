@@ -15,7 +15,7 @@ GTV = glob('/home/denis/samba_share/katrins_data/*/GTV*')
 print("GTV is: ",len(GTV))
 
 for f in range(len(GTV)):
-    gtv = read_image(gtv[f])
+    gtv = read_image(GTV[f])
     print(gtv.max())
 
 
