@@ -21,10 +21,10 @@ print("new pet: ", PET.shape)
 
 PET_cropped = PET[:,:, 282:]
 print(PET_cropped.shape)
-#PET_itk = sitk.GetImageFromArray(PET_cropped)
+PET_itk = sitk.GetImageFromArray(PET_cropped)
 #PET_itk.CopyInformation(im)
 
-#sitk.WriteImage(PET_itk, '/home/abe/samba_share/katrins_data/18103/PET_cropped.nii.gz')
+sitk.WriteImage(PET_itk, '/home/abe/samba_share/katrins_data/18103/PET_cropped.nii.gz')
 print("done")
 
 
