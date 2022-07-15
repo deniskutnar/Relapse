@@ -19,7 +19,7 @@ for f in range(len(ct_dirs)):
     first = name[8:12]
     second = name [16:19]
     print (first)
-    print ("s ",seond)
+    print ("s ",second)
 
   
 
