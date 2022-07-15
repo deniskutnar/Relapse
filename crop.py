@@ -10,7 +10,7 @@ def read_image(path):
 
 
 CT = read_image('/home/abe/samba_share/katrins_data/18103/ct_from_-218_to_192.nii.gz')
-PET = read_image('/home/abe/samba_share/katrins_data/18103/pet_from_-782_192.nii.gz')
+PET = read_image('/home/abe/samba_share/katrins_data/18103/pet_from_-782_to_192.nii.gz')
 print(CT.shape)
 print(PET.shape)
 
