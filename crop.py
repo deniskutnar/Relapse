@@ -19,6 +19,19 @@ def read_image(path):
 home_dirs = glob('/home/denis/samba_share/katrins_data/*/')
 print(home_dirs)
 
+directory = "Cropped" 
+parent_dir = home_dirs
+
+for f in range(1):
+#for f in range(len(ct_dirs)):
+    path = os.path.join(parent_dir[f], directory)
+    os.mkdir(path)
+    print("Dir created")
+
+  
+
+  
+
 
 
 
