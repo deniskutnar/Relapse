@@ -11,6 +11,13 @@ def read_image(path):
 ct_dirs = glob('/home/denis/samba_share/katrins_data/*/*ct_from*')
 pet_dirs = glob('/home/denis/samba_share/katrins_data/*/*pet_from*')
 
+GTV = glob('/home/denis/samba_share/katrins_data/*/GTV*')
+print("GTV is: "len(GTV))
+
+for f in range(len(GTV)):
+    gtv = read_image(gtv[f])
+    print(gtv.max())
+
 
 
 OK_dirs = ["/home/denis/samba_share/katrins_data/6747", 
@@ -33,7 +40,6 @@ OneS_dirs = ["/home/denis/samba_share/katrins_data/8935",
 "/home/denis/samba_share/katrins_data/11061",
 "/home/denis/samba_share/katrins_data/11086",
 "/home/denis/samba_share/katrins_data/11210",
-"/home/denis/samba_share/katrins_data/11240", # careful here PET 2.145374449339207
 "/home/denis/samba_share/katrins_data/11576",
 "/home/denis/samba_share/katrins_data/11663",
 "/home/denis/samba_share/katrins_data/13271",
@@ -58,16 +64,40 @@ Odd_dirs = ["/home/denis/samba_share/katrins_data/10147",
 "/home/denis/samba_share/katrins_data/11749",
 "/home/denis/samba_share/katrins_data/13544",
 "/home/denis/samba_share/katrins_data/17775",
-"/home/denis/samba_share/katrins_data/18103"]
+"/home/denis/samba_share/katrins_data/18103",
+"/home/denis/samba_share/katrins_data/11240"] # careful here PET 2.145374449339207
 
 
-for f in range (len(OneS_dirs_dirs)):
+
+
+
+
+### Notes
+# Checkt if GTV exists 
+# check the max()
+# find all relapse 
+# fuse relapse 
+# binarize the relpase 
+
+"""
+
+for f in range (len(OneS_dirs)):
     #print(OneS_dirs_dirs[f])
-    CT = glob(OneS_dirs_dirs[f] + '/' +'*ct_from*')
-    PET = glob(OneS_dirs_dirs[f] + '/' +'*ct_from*')
-    print(CT)
+    CT_dir = glob(OneS_dirs[f] + '/' +'*ct_from*')
+    PET_dir = glob(OneS_dirs[f] + '/' +'*pet_from*')
+    GTV_dir = glob(OneS_dirs[f] + '/' +'GTV.nii*')
+    Relapse_dir = glob(OneS_dirs[f] + '/' +'Relapse*')
 
 
+    CT = read_image(CT_dir)
+    CT_cropped = CT[:,:, 1:]
+    CT_itk = sitk.GetImageFromArray(CT_cropped)
+
+    path = OneS_dirs + '/Cropped/'
+    #sitk.WriteImage(CT_itk, path + 'CT.nii.gz')
+
+
+"""
   
 
   
