@@ -21,7 +21,7 @@ print(PET.shape)
 
 PET_cropped = CT[:,:, 282:206]
 PET_itk = sitk.GetImageFromArray(PET_cropped)
-PET_itk.CopyInformation(im)
+#PET_itk.CopyInformation(im)
 
 sitk.WriteImage(PET_itk, '/home/abe/samba_share/katrins_data/18103/PET_cropped.nii.gz')
 print("done")
