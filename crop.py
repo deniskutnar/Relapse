@@ -16,11 +16,8 @@ def read_image(path):
     return img_as_numpy
 
 # create cropped folder
-
-for f in range(len(ct_dirs)):
-    dirs = ct_dirs[f][:41]
-    print(dirs)
-  
+home_dirs = glob('/home/denis/samba_share/katrins_data/*/')
+print(home_dirs)
 
 
 
