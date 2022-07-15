@@ -3,30 +3,20 @@ import SimpleITK as sitk
 import numpy as np
 from glob import glob
 
-ct_dirs = glob('/home/denis/samba_share/katrins_data/*/*ct_from*')
-pet_dirs = glob('/home/denis/samba_share/katrins_data/*/*pet_from*')
-print("CT lenght: ",  len(ct_dirs))
-print("PET lenght: ",  len(pet_dirs))
-
-
-
 def read_image(path):
     img = sitk.ReadImage(path)
     img_as_numpy = sitk.GetArrayFromImage(img)
     return img_as_numpy
 
-# create cropped folder
-home_dirs = glob('/home/denis/samba_share/katrins_data/*/')
-#print(home_dirs)
+ct_dirs = glob('/home/denis/samba_share/katrins_data/*/*ct_from*')
+pet_dirs = glob('/home/denis/samba_share/katrins_data/*/*pet_from*')
 
-directory = "Cropped" 
-parent_dir = home_dirs
 
-#for f in range(1):
+
+
 for f in range(len(ct_dirs)):
-    path = os.path.join(parent_dir[f], directory)
-    os.mkdir(path)
-    print("Dir created")
+    print(ct_dirs[f])
+  
 
   
 
