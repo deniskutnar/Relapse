@@ -15,6 +15,11 @@ def read_image(path):
     img_as_numpy = sitk.GetArrayFromImage(img)
     return img_as_numpy
 
+# create cropped folder
+
+for f in range(len(ct_dirs)):
+    print(ct_dirs[f])
+
 
 
 
