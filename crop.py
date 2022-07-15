@@ -19,6 +19,7 @@ def read_image(path):
 
 for f in range(len(ct_dirs)):
     dirs = ct_dirs[f][41:]
+    print(dirs)
   
 
 
