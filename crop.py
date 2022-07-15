@@ -13,7 +13,7 @@ def read_image(path):
     img_as_numpy = sitk.GetArrayFromImage(img)
     return img_as_numpy
 
-/home/denis/samba_share/katrins_data
+
 
 
 CT = read_image('/home/denis/samba_share/katrins_data/18103/ct_from_-218_to_192.nii.gz')
