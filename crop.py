@@ -62,7 +62,7 @@ Odd_dirs = ["/home/denis/samba_share/katrins_data/10147",
 
 
 
-print(OK_dirs)
+print(OK_dirs[0])
 
 
   
