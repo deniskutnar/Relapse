@@ -63,7 +63,7 @@ Odd_dirs = ["/home/denis/samba_share/katrins_data/10147",
 
 for f in range (len(OK_dirs)):
     print(OK_dirs[f])
-    CT = glob(OK_dirs[f] + '*ct_from*')
+    CT = glob(OK_dirs[f] + '/' +'*ct_from*')
     print(CT)
 
 
