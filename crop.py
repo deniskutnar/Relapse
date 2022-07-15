@@ -61,8 +61,8 @@ Odd_dirs = ["/home/denis/samba_share/katrins_data/10147",
 "/home/denis/samba_share/katrins_data/18103"]
 
 
-for f in range(len(OK_dirs)):
-print(OK_dirs[f])
+
+print(OK_dirs)
 
 
   
