@@ -18,7 +18,8 @@ def read_image(path):
 # create cropped folder
 
 for f in range(len(ct_dirs)):
-    print(ct_dirs[f])
+    dirs = ct_dirs[f][41:]
+  
 
 
 
