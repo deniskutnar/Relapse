@@ -19,11 +19,12 @@ PET = read_image('/home/abe/samba_share/katrins_data/18103/pet_from_-782_to_192.
 print(CT.shape)
 print(PET.shape)
 
-PET_cropped = CT[:,:, 282:206]
-PET_itk = sitk.GetImageFromArray(PET_cropped)
+PET_cropped = CT[:,:, 282:]
+print(PET_cropped.shape)
+#PET_itk = sitk.GetImageFromArray(PET_cropped)
 #PET_itk.CopyInformation(im)
 
-sitk.WriteImage(PET_itk, '/home/abe/samba_share/katrins_data/18103/PET_cropped.nii.gz')
+#sitk.WriteImage(PET_itk, '/home/abe/samba_share/katrins_data/18103/PET_cropped.nii.gz')
 print("done")
 
 
