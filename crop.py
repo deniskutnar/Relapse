@@ -80,16 +80,32 @@ gtv_src = glob(OK_dirs[x] + '/' + "*GTV.nii.gz")
 gtv_src = ''.join(gtv_src)
 gtv_dst = OK_dirs[x] + '/Cropped/GTV.nii.gz'
 
-rel_src = glob(OK_dirs[x] + '/' + "*Relapse*")
-rel_src = ''.join(rel_src)
+rel_src1 = glob(OK_dirs[x] + '/' + "*Relapse Volume_i.nii*")
+rel_src1 = ''.join(rel_src1)
+rel_src2 = glob(OK_dirs[x] + '/' + "*Relapse Volume_s.nii*")
+rel_src2 = ''.join(rel_src2)
 rel_dst = OK_dirs[x] + '/Cropped/Relapse.nii.gz'
+
+rel_arr1 = read_image(rel_src1)
+rel_arr2 = read_image(rel_src2)
+print("Rel 1 max: ", rel_arr1.max())
+print("Rel 2 max: ", rel_arr2.max())
+rel_fuse = rel_arr1 + rel_arr2
+print("Rel Fuse max: ", rel_fuse.max())
+print("Rel Fuse min: ", rel_fuse.min())
+
+
+
+
 
 print(ct_src)
 
-shutil.copy2(ct_src, ct_dst)
-shutil.copy2(pet_src, pet_dst)
-shutil.copy2(gtv_src, gtv_dst)
-shutil.copy2(rel_src, rel_dst)
+
+
+#shutil.copy2(ct_src, ct_dst)
+#shutil.copy2(pet_src, pet_dst)
+#shutil.copy2(gtv_src, gtv_dst)
+#shutil.copy2(rel_src, rel_dst)
 
 
 
