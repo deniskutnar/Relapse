@@ -117,7 +117,7 @@ BinIm = BinThreshImFilt.Execute(Im)
 """
 
 CT = read_image(ct_src)
-CT_cropped = CT[:,:, 333:405]
+CT_cropped = CT[:,:, 333:435]
 print("CT cropped ", CT_cropped.shape)
 CT_itk = sitk.GetImageFromArray(CT_cropped)
 
