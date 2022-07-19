@@ -86,7 +86,7 @@ print("PET SOURCE: ", pet_src)
 print("GTV SOURCE: ", gtv_src)
 print("Relapse SOURCE: ",rel_src)
 
-shutil.copyfile(ct_src, ct_dst)
+shutil.copy2(ct_src, ct_dst)
 
 
 
