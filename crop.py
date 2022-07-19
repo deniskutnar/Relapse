@@ -88,23 +88,31 @@ rel_dst = OK_dirs[x] + '/Cropped/Relapse.nii.gz'
 
 rel_arr1 = read_image(rel_src1)
 rel_arr2 = read_image(rel_src2)
-print("Rel 1 max: ", rel_arr1.max())
-print("Rel 2 max: ", rel_arr2.max())
+#print("Rel 1 max: ", rel_arr1.max())
+#print("Rel 2 max: ", rel_arr2.max())
 rel_fuse = rel_arr1 + rel_arr2
-print("Rel Fuse max: ", rel_fuse.max())
-print("Rel Fuse min: ", rel_fuse.min())
+#print("Rel Fuse max: ", rel_fuse.max())
+#print("Rel Fuse min: ", rel_fuse.min())
 
+out_im = sitk.GetImageFromArray(rel_fuse)
 
+Im = out_im
+BinThreshImFilt = sitk.BinaryThresholdImageFilter()
+BinThreshImFilt.SetLowerThreshold(0)
+BinThreshImFilt.SetUpperThreshold(5)
+BinThreshImFilt.SetOutsideValue(0)
+BinThreshImFilt.SetInsideValue(1)
+BinIm = BinThreshImFilt.Execute(Im)
 
-
+sitk.WriteImage(BinIm, rel_dst)
 
 print(ct_src)
 
 
 
-#shutil.copy2(ct_src, ct_dst)
-#shutil.copy2(pet_src, pet_dst)
-#shutil.copy2(gtv_src, gtv_dst)
+shutil.copy2(ct_src, ct_dst)
+shutil.copy2(pet_src, pet_dst)
+shutil.copy2(gtv_src, gtv_dst)
 #shutil.copy2(rel_src, rel_dst)
 
 
