@@ -90,10 +90,12 @@ rel_dst = OK_dirs[x] + '/Cropped/Relapse.nii.gz'
 
 
 print("PET SOURCE: ", pet_src)
+print("PET Dest: ", pet_dst)
 #print("GTV SOURCE: ", gtv_src)
 #print("Relapse SOURCE: ",rel_src)
 
-#shutil.copy2(ct_src2, ct_dst)
+#shutil.copy2(ct_src, ct_dst)
+shutil.copy2(pet_src, pet_dst)
 
 
 
