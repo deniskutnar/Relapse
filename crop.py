@@ -122,11 +122,11 @@ print("CT cropped ", CT_cropped.shape)
 CT_itk = sitk.GetImageFromArray(CT_cropped)
 
 GTV = read_image(gtv_src)
-GTV_cropped = GTV[:,:, 1:]
+GTV_cropped = GTV[:,:, 333:435]
 GTV_itk = sitk.GetImageFromArray(GTV_cropped)
 
 Relp = read_image(rel_src1)
-Relp_cropped = Relp[:,:, 1:]
+Relp_cropped = Relp[:,:, 333:435]
 Relp_itk = sitk.GetImageFromArray(Relp_cropped)
 
 #Relp = sitk.GetArrayFromImage(BinIm)
@@ -139,10 +139,10 @@ Relp_itk = sitk.GetImageFromArray(Relp_cropped)
 #shutil.copy2(gtv_src, gtv_dst)
 #shutil.copy2(rel_src, rel_dst)
 
-#sitk.WriteImage(CT_itk, ct_dst)
-#shutil.copy2(pet_src, pet_dst)
-#sitk.WriteImage(GTV_itk, gtv_dst)
-#sitk.WriteImage(Relp_itk, rel_dst)
+sitk.WriteImage(CT_itk, ct_dst)
+shutil.copy2(pet_src, pet_dst)
+sitk.WriteImage(GTV_itk, gtv_dst)
+sitk.WriteImage(Relp_itk, rel_dst)
 
 
 
