@@ -79,9 +79,11 @@ pet_src = ''.join(pet_src)
 pet_dst = OK_dirs[x] + '/Cropped/PET.nii.gz'
 
 gtv_src = glob(OK_dirs[x] + '/' + "*GTV.nii.gz")
+gtv_src = ''.join(gtv_src)
 gtv_dst = OK_dirs[x] + '/Cropped/GTV.nii.gz'
 
 rel_src = glob(OK_dirs[x] + '/' + "*Relapse*")
+rel_src = ''.join(rel_src)
 rel_dst = OK_dirs[x] + '/Cropped/Relapse.nii.gz'
 
 
@@ -89,13 +91,10 @@ rel_dst = OK_dirs[x] + '/Cropped/Relapse.nii.gz'
 #print("CT Dest: ", ct_dst)
 
 
-print("PET SOURCE: ", pet_src)
-print("PET Dest: ", pet_dst)
-#print("GTV SOURCE: ", gtv_src)
-#print("Relapse SOURCE: ",rel_src)
-
 #shutil.copy2(ct_src, ct_dst)
-shutil.copy2(pet_src, pet_dst)
+#shutil.copy2(pet_src, pet_dst)
+shutil.copy2(gtv_src, gtv_dst)
+shutil.copy2(rel_src, rel_dst)
 
 
 
