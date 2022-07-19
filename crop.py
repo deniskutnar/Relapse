@@ -67,7 +67,9 @@ Odd_dirs = ["/home/denis/samba_share/katrins_data/10147",
 # Copy PET,CT and find the GTV and Relapse 
 
 
-ct_src = glob("/home/denis/samba_share/katrins_data/6747/*ct_from*")
+x = 0
+ct_src = glob(OK_dirs[x] + '/' + "*ct_from*")
+#ct_src = glob("/home/denis/samba_share/katrins_data/6747/*ct_from*")
 ct_dst = "/home/denis/samba_share/katrins_data/6747"
 #shutil.copyfile(src, dst)
 print("CT SOURCE: ", ct_src)
