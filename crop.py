@@ -11,12 +11,14 @@ def read_image(path):
 ct_dirs = glob('/home/denis/samba_share/katrins_data/*/*ct_from*')
 pet_dirs = glob('/home/denis/samba_share/katrins_data/*/*pet_from*')
 
-GTV = glob('/home/denis/samba_share/katrins_data/*/GTV*')
-print("GTV is: ",len(GTV))
+gtv_dirs = glob('/home/denis/samba_share/katrins_data/*/GTV*')
+print("GTV is: ",len(gtv_dirs))
 
-for f in range(len(GTV)):
-    gtv = read_image(GTV[f])
+for f in range(len(gtv_dirs)):
+    gtv = read_image(gtv_dirs[f])
+    print(gtv_dirs)
     print(gtv.max())
+    print("")
 
 
 
