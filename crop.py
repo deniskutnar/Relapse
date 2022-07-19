@@ -2,6 +2,7 @@ import os
 import SimpleITK as sitk
 import numpy as np
 from glob import glob
+import shutil
 
 def read_image(path):
     img = sitk.ReadImage(path)
@@ -11,14 +12,7 @@ def read_image(path):
 ct_dirs = glob('/home/denis/samba_share/katrins_data/*/*ct_from*')
 pet_dirs = glob('/home/denis/samba_share/katrins_data/*/*pet_from*')
 
-gtv_dirs = glob('/home/denis/samba_share/katrins_data/*/GTV*')
-print("GTV is: ",len(gtv_dirs))
-
-for f in range(len(gtv_dirs)):
-    gtv = read_image(gtv_dirs[f])
-    print(gtv_dirs[f])
-    print(gtv.max())
-    print("")
+#gtv_dirs = glob('/home/denis/samba_share/katrins_data/*/GTV*')
 
 
 
@@ -69,8 +63,14 @@ Odd_dirs = ["/home/denis/samba_share/katrins_data/10147",
 "/home/denis/samba_share/katrins_data/18103",
 "/home/denis/samba_share/katrins_data/11240"] # careful here PET 2.145374449339207
 
+# OK Dirs:
+# Copy PET,CT and find the GTV and Relapse 
 
 
+ct_src = glob("/home/denis/samba_share/katrins_data/6747/*ct_from*")
+ct_dst = "/home/denis/samba_share/katrins_data/6747"
+#shutil.copyfile(src, dst)
+print("CT SOURCE: ", ct_src)
 
 
 
