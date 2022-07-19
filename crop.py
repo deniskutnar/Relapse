@@ -53,6 +53,7 @@ OneS_dirs = ["/home/denis/samba_share/katrins_data/8935", # missing relapse
 "/home/denis/samba_share/katrins_data/14049",
 "/home/denis/samba_share/katrins_data/14401",
 "/home/denis/samba_share/katrins_data/14800",
+
 "/home/denis/samba_share/katrins_data/14809",
 "/home/denis/samba_share/katrins_data/15174",
 "/home/denis/samba_share/katrins_data/16742"]
@@ -71,7 +72,7 @@ Odd_dirs = ["/home/denis/samba_share/katrins_data/10147",
 # Copy PET,CT and find the GTV and Relapse 
 
 
-x = 20
+x = 21
 
 ct_src = glob(OneS_dirs[x] + '/' + "*ct_from*")
 ct_src = ''.join(ct_src)
