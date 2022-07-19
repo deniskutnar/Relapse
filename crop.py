@@ -67,7 +67,7 @@ Odd_dirs = ["/home/denis/samba_share/katrins_data/10147",
 # Copy PET,CT and find the GTV and Relapse 
 
 
-x = 3
+x = 4
 ct_src = glob(OK_dirs[x] + '/' + "*ct_from*")
 ct_src = ''.join(ct_src)
 ct_dst = OK_dirs[x] + '/Cropped/CT.nii.gz'
@@ -76,13 +76,15 @@ pet_src = glob(OK_dirs[x] + '/' + "*pet_from*")
 pet_src = ''.join(pet_src)
 pet_dst = OK_dirs[x] + '/Cropped/PET.nii.gz'
 
-gtv_src = glob(OK_dirs[x] + '/' + "*GTV Rad*")
+gtv_src = glob(OK_dirs[x] + '/' + "*GTV*")
 gtv_src = ''.join(gtv_src)
 gtv_dst = OK_dirs[x] + '/Cropped/GTV.nii.gz'
 
 rel_src = glob(OK_dirs[x] + '/' + "*Relapse*")
 rel_src = ''.join(rel_src)
 rel_dst = OK_dirs[x] + '/Cropped/Relapse.nii.gz'
+
+print(ct_src)
 
 shutil.copy2(ct_src, ct_dst)
 shutil.copy2(pet_src, pet_dst)
