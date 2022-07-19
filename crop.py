@@ -67,7 +67,7 @@ Odd_dirs = ["/home/denis/samba_share/katrins_data/10147",
 # Copy PET,CT and find the GTV and Relapse 
 
 
-x = 7
+x = 8
 
 ct_src = glob(OK_dirs[x] + '/' + "*ct_from*")
 ct_src = ''.join(ct_src)
@@ -82,23 +82,25 @@ gtv_src = glob(OK_dirs[x] + '/' + "*GTV.nii.gz")
 gtv_src = ''.join(gtv_src)
 gtv_dst = OK_dirs[x] + '/Cropped/GTV.nii.gz'
 
-"""
-rel_src1 = glob(OK_dirs[x] + '/' + "*Relapse*")
+
+rel_src1 = glob(OK_dirs[x] + '/' + "*Relapse Volume_N.nii*")
 rel_src1 = ''.join(rel_src1)
-rel_src2 = glob(OK_dirs[x] + '/' + "*Relapse_deformed_N2.nii*")
+rel_src2 = glob(OK_dirs[x] + '/' + "*Relapse Volume_T.nii*")
 rel_src2 = ''.join(rel_src2)
+"""
 rel_src3 = glob(OK_dirs[x] + '/' + "*Relapse_deformed_T.nii*")
 rel_src3 = ''.join(rel_src3)
-"""
+
 rel_src = glob(OK_dirs[x] + '/' + "*Relapse*")
 rel_src = ''.join(rel_src)
+"""
 rel_dst = OK_dirs[x] + '/Cropped/Relapse.nii.gz'
 
-"""
+
 rel_arr1 = read_image(rel_src1)
 rel_arr2 = read_image(rel_src2)
-rel_arr3 = read_image(rel_src3)
-rel_fuse = rel_arr1 + rel_arr2 + rel_arr3
+#rel_arr3 = read_image(rel_src3)
+rel_fuse = rel_arr1 + rel_arr2 
 
 out_im = sitk.GetImageFromArray(rel_fuse)
 Im = out_im
@@ -108,15 +110,15 @@ BinThreshImFilt.SetUpperThreshold(5)
 BinThreshImFilt.SetOutsideValue(0)
 BinThreshImFilt.SetInsideValue(1)
 BinIm = BinThreshImFilt.Execute(Im)
-"""
 
 
 
-#shutil.copy2(ct_src, ct_dst)
-#shutil.copy2(pet_src, pet_dst)
-#shutil.copy2(gtv_src, gtv_dst)
-shutil.copy2(rel_src, rel_dst)
-#sitk.WriteImage(BinIm, rel_dst)
+
+shutil.copy2(ct_src, ct_dst)
+shutil.copy2(pet_src, pet_dst)
+shutil.copy2(gtv_src, gtv_dst)
+#shutil.copy2(rel_src, rel_dst)
+sitk.WriteImage(BinIm, rel_dst)
 
 
 
