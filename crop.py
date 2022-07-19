@@ -70,7 +70,7 @@ Odd_dirs = ["/home/denis/samba_share/katrins_data/10147",
 x = 0
 ct_src = glob(OK_dirs[x] + '/' + "*ct_from*")
 ct_dst = OK_dirs[x] + '/Cropped/CT.nii.gz'
-bla = str(ct_dirs)
+bla = str(ct_src)
 print("BLAA", bla)
 
 pet_src = glob(OK_dirs[x] + '/' + "*pet_from*")
