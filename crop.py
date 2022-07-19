@@ -75,7 +75,7 @@ x = 0
 
 
 pet_src = glob(OK_dirs[x] + '/' + "*pet_from*")
-pet_src = pet_src[1:]
+pet_src = .join(pet_src)
 pet_dst = OK_dirs[x] + '/Cropped/PET.nii.gz'
 
 gtv_src = glob(OK_dirs[x] + '/' + "*GTV.nii.gz")
