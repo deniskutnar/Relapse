@@ -68,13 +68,14 @@ Odd_dirs = ["/home/denis/samba_share/katrins_data/10147",
 
 
 x = 0
-ct_src = glob(OK_dirs[x] + '/' + "*ct_from*")
-ct_src2 = "/home/denis/samba_share/katrins_data/6747/ct_from_-663_to_195.nii.gz"
-ct_dst = OK_dirs[x] + '/Cropped/CT.nii.gz'
+#ct_src = glob(OK_dirs[x] + '/' + "*ct_from*")
+#ct_src2 = "/home/denis/samba_share/katrins_data/6747/ct_from_-663_to_195.nii.gz"
+#ct_dst = OK_dirs[x] + '/Cropped/CT.nii.gz'
 
 
 
 pet_src = glob(OK_dirs[x] + '/' + "*pet_from*")
+pet_src = pet_src[1:]
 pet_dst = OK_dirs[x] + '/Cropped/PET.nii.gz'
 
 gtv_src = glob(OK_dirs[x] + '/' + "*GTV.nii.gz")
@@ -84,15 +85,15 @@ rel_src = glob(OK_dirs[x] + '/' + "*Relapse*")
 rel_dst = OK_dirs[x] + '/Cropped/Relapse.nii.gz'
 
 
-print("CT SOURCE: ", ct_src2)
-print("CT Dest: ", ct_dst)
+#print("CT SOURCE: ", ct_src2)
+#print("CT Dest: ", ct_dst)
 
 
-#print("PET SOURCE: ", pet_src)
+print("PET SOURCE: ", pet_src)
 #print("GTV SOURCE: ", gtv_src)
 #print("Relapse SOURCE: ",rel_src)
 
-shutil.copy2(ct_src2, ct_dst)
+#shutil.copy2(ct_src2, ct_dst)
 
 
 
