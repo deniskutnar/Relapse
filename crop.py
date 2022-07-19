@@ -85,6 +85,7 @@ gtv_dst = OneS_dirs[x] + '/Cropped/GTV.nii.gz'
 
 rel_src1 = glob(OneS_dirs[x] + '/' + "*Relapse*")
 rel_src1 = ''.join(rel_src1)
+rel_dst = OneS_dirs[x] + '/Cropped/Relapse.nii.gz'
 
 """
 rel_src2 = glob(OneS_dirs[x] + '/' + "*Relapse deformed_cran.nii*")
@@ -128,9 +129,9 @@ Relp_itk = sitk.GetImageFromArray(Relp_cropped)
 #shutil.copy2(gtv_src, gtv_dst)
 #shutil.copy2(rel_src, rel_dst)
 
-sitk.WriteImage(CT_itk, ct_dst)
-shutil.copy2(pet_src, pet_dst)
-sitk.WriteImage(GTV_itk, gtv_dst)
+#sitk.WriteImage(CT_itk, ct_dst)
+#shutil.copy2(pet_src, pet_dst)
+#sitk.WriteImage(GTV_itk, gtv_dst)
 sitk.WriteImage(Relp_itk, rel_dst)
 
 
