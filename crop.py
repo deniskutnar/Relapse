@@ -59,7 +59,7 @@ OneS_dirs = ["/home/denis/samba_share/katrins_data/8935", # missing relapse
 "/home/denis/samba_share/katrins_data/16742"]
 
 
-Odd_dirs = ["/home/denis/samba_share/katrins_data/10147",
+Odd_dirs = ["/home/denis/samba_share/katrins_data/10147", # CT 2.0 PET 2.712871287128713
 "/home/denis/samba_share/katrins_data/10967",
 "/home/denis/samba_share/katrins_data/11432", # PET 3.0 
 "/home/denis/samba_share/katrins_data/11749",
@@ -72,31 +72,31 @@ Odd_dirs = ["/home/denis/samba_share/katrins_data/10147",
 # Copy PET,CT and find the GTV and Relapse 
 
 
-x = 24
+x = 0
 
-ct_src = glob(OneS_dirs[x] + '/' + "*ct_from*")
+ct_src = glob(Odd_dirs[x] + '/' + "*ct_from*")
 ct_src = ''.join(ct_src)
-ct_dst = OneS_dirs[x] + '/Cropped/CT.nii.gz'
+ct_dst = Odd_dirs[x] + '/Cropped/CT.nii.gz'
 print(ct_src)
 
-pet_src = glob(OneS_dirs[x] + '/' + "*pet_from*")
+pet_src = glob(Odd_dirs[x] + '/' + "*pet_from*")
 pet_src = ''.join(pet_src)
-pet_dst = OneS_dirs[x] + '/Cropped/PET.nii.gz'
+pet_dst = Odd_dirs[x] + '/Cropped/PET.nii.gz'
 
-gtv_src = glob(OneS_dirs[x] + '/' + "*GTV.nii.gz")
+gtv_src = glob(Odd_dirs[x] + '/' + "*GTV.nii.gz")
 gtv_src = ''.join(gtv_src)
-gtv_dst = OneS_dirs[x] + '/Cropped/GTV.nii.gz'
+gtv_dst = Odd_dirs[x] + '/Cropped/GTV.nii.gz'
 
 
-rel_src1 = glob(OneS_dirs[x] + '/' + "*Relapse*")
+rel_src1 = glob(Odd_dirs[x] + '/' + "*Relapse*")
 rel_src1 = ''.join(rel_src1)
-rel_dst = OneS_dirs[x] + '/Cropped/Relapse.nii.gz'
+rel_dst = Odd_dirs[x] + '/Cropped/Relapse.nii.gz'
 
 """
-rel_src2 = glob(OneS_dirs[x] + '/' + "*relapse volume_R.nii*")
+rel_src2 = glob(Odd_dirs[x] + '/' + "*relapse volume_R.nii*")
 rel_src2 = ''.join(rel_src2)
 
-#rel_src3 = glob(OneS_dirs[x] + '/' + "*Relapse volume_s.nii*")
+#rel_src3 = glob(Odd_dirs[x] + '/' + "*Relapse volume_s.nii*")
 #rel_src3 = ''.join(rel_src3)
 
 
@@ -117,7 +117,8 @@ BinIm = BinThreshImFilt.Execute(Im)
 """
 
 CT = read_image(ct_src)
-CT_cropped = CT[:,:, 1:]
+CT_cropped = CT[:,:, 333:-18]
+print("CT cropped ", CT_cropped.shape)
 CT_itk = sitk.GetImageFromArray(CT_cropped)
 
 GTV = read_image(gtv_src)
@@ -138,10 +139,10 @@ Relp_itk = sitk.GetImageFromArray(Relp_cropped)
 #shutil.copy2(gtv_src, gtv_dst)
 #shutil.copy2(rel_src, rel_dst)
 
-sitk.WriteImage(CT_itk, ct_dst)
-shutil.copy2(pet_src, pet_dst)
-sitk.WriteImage(GTV_itk, gtv_dst)
-sitk.WriteImage(Relp_itk, rel_dst)
+#sitk.WriteImage(CT_itk, ct_dst)
+#shutil.copy2(pet_src, pet_dst)
+#sitk.WriteImage(GTV_itk, gtv_dst)
+#sitk.WriteImage(Relp_itk, rel_dst)
 
 
 
