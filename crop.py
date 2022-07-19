@@ -18,7 +18,7 @@ pet_dirs = glob('/home/denis/samba_share/katrins_data/*/*pet_from*')
 
 OK_dirs = ["/home/denis/samba_share/katrins_data/6747", 
 "/home/denis/samba_share/katrins_data/6823",
-"/home/denis/samba_share/katrins_data/7729",
+"/home/denis/samba_share/katrins_data/7229",
 "/home/denis/samba_share/katrins_data/7660",
 "/home/denis/samba_share/katrins_data/9515",
 "/home/denis/samba_share/katrins_data/9649",
