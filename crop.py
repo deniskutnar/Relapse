@@ -78,7 +78,7 @@ pet_src = glob(OneS_dirs[x] + '/' + "*pet_from*")
 pet_src = ''.join(pet_src)
 pet_dst = OneS_dirs[x] + '/Cropped/PET.nii.gz'
 
-gtv_src = glob(OneS_dirs[x] + '/' + "*GTV_T.nii.gz")
+gtv_src = glob(OneS_dirs[x] + '/' + "*GTV.nii.gz")
 gtv_src = ''.join(gtv_src)
 gtv_dst = OneS_dirs[x] + '/Cropped/GTV.nii.gz'
 
