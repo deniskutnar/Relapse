@@ -67,7 +67,7 @@ Odd_dirs = ["/home/denis/samba_share/katrins_data/10147",
 # Copy PET,CT and find the GTV and Relapse 
 
 
-x = 5
+x = 6
 
 ct_src = glob(OneS_dirs[x] + '/' + "*ct_from*")
 ct_src = ''.join(ct_src)
@@ -87,7 +87,7 @@ rel_src1 = glob(OneS_dirs[x] + '/' + "*Relapse deformed_N.nii*")
 rel_src1 = ''.join(rel_src1)
 rel_dst = OneS_dirs[x] + '/Cropped/Relapse.nii.gz'
 
-
+"""
 rel_src2 = glob(OneS_dirs[x] + '/' + "*Relapse deformed_T.nii*")
 rel_src2 = ''.join(rel_src2)
 
@@ -105,7 +105,7 @@ BinThreshImFilt.SetUpperThreshold(5)
 BinThreshImFilt.SetOutsideValue(0)
 BinThreshImFilt.SetInsideValue(1)
 BinIm = BinThreshImFilt.Execute(Im)
-
+"""
 
 CT = read_image(ct_src)
 CT_cropped = CT[:,:, 1:]
@@ -115,13 +115,13 @@ GTV = read_image(gtv_src)
 GTV_cropped = GTV[:,:, 1:]
 GTV_itk = sitk.GetImageFromArray(GTV_cropped)
 
-#Relp = read_image(rel_src1)
-#Relp_cropped = Relp[:,:, 1:]
-#Relp_itk = sitk.GetImageFromArray(Relp_cropped)
-
-Relp = sitk.GetArrayFromImage(BinIm)
+Relp = read_image(rel_src1)
 Relp_cropped = Relp[:,:, 1:]
 Relp_itk = sitk.GetImageFromArray(Relp_cropped)
+
+#Relp = sitk.GetArrayFromImage(BinIm)
+#Relp_cropped = Relp[:,:, 1:]
+#Relp_itk = sitk.GetImageFromArray(Relp_cropped)
 
 
 #shutil.copy2(ct_src, ct_dst)
