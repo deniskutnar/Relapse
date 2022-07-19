@@ -82,9 +82,10 @@ rel_dst = OK_dirs[x] + '/Cropped/Relapse.nii.gz'
 
 
 print("CT SOURCE: ", ct_src)
-print("PET SOURCE: ", pet_src)
-print("GTV SOURCE: ", gtv_src)
-print("Relapse SOURCE: ",rel_src)
+print("CT Dest: ", ct_dst)
+#print("PET SOURCE: ", pet_src)
+#print("GTV SOURCE: ", gtv_src)
+#print("Relapse SOURCE: ",rel_src)
 
 shutil.copy2(ct_src, ct_dst)
 
