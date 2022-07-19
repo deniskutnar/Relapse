@@ -114,7 +114,7 @@ GTV = read_image(gtv_src)
 GTV_cropped = GTV[:,:, 1:]
 GTV_itk = sitk.GetImageFromArray(GTV_cropped)
 
-Relp = read_image(relp_src1)
+Relp = read_image(rel_src1)
 Relp_cropped = Relp[:,:, 1:]
 Relp_itk = sitk.GetImageFromArray(Relp_cropped)
 
