@@ -82,14 +82,16 @@ gtv_src = glob(OK_dirs[x] + '/' + "*GTV.nii.gz")
 gtv_src = ''.join(gtv_src)
 gtv_dst = OK_dirs[x] + '/Cropped/GTV.nii.gz'
 
+"""
 rel_src1 = glob(OK_dirs[x] + '/' + "*Relapse*")
 rel_src1 = ''.join(rel_src1)
-"""
 rel_src2 = glob(OK_dirs[x] + '/' + "*Relapse_deformed_N2.nii*")
 rel_src2 = ''.join(rel_src2)
 rel_src3 = glob(OK_dirs[x] + '/' + "*Relapse_deformed_T.nii*")
 rel_src3 = ''.join(rel_src3)
 """
+rel_src = glob(OK_dirs[x] + '/' + "*Relapse*")
+rel_src = ''.join(rel_src)
 rel_dst = OK_dirs[x] + '/Cropped/Relapse.nii.gz'
 
 """
@@ -110,9 +112,9 @@ BinIm = BinThreshImFilt.Execute(Im)
 
 
 
-shutil.copy2(ct_src, ct_dst)
-shutil.copy2(pet_src, pet_dst)
-shutil.copy2(gtv_src, gtv_dst)
+#shutil.copy2(ct_src, ct_dst)
+#shutil.copy2(pet_src, pet_dst)
+#shutil.copy2(gtv_src, gtv_dst)
 shutil.copy2(rel_src, rel_dst)
 #sitk.WriteImage(BinIm, rel_dst)
 
