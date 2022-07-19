@@ -27,7 +27,7 @@ OK_dirs = ["/home/denis/samba_share/katrins_data/6747",
 "/home/denis/samba_share/katrins_data/11386",
 "/home/denis/samba_share/katrins_data/17496"]
 
-OneS_dirs = ["/home/denis/samba_share/katrins_data/8935",
+OneS_dirs = ["/home/denis/samba_share/katrins_data/8935", # missing relapse
 "/home/denis/samba_share/katrins_data/9610",
 "/home/denis/samba_share/katrins_data/9937",
 "/home/denis/samba_share/katrins_data/10033",
@@ -67,39 +67,31 @@ Odd_dirs = ["/home/denis/samba_share/katrins_data/10147",
 # Copy PET,CT and find the GTV and Relapse 
 
 
-x = 9
+x = 0
 
-ct_src = glob(OK_dirs[x] + '/' + "*ct_from*")
+ct_src = glob(OneS_dirs[x] + '/' + "*ct_from*")
 ct_src = ''.join(ct_src)
-ct_dst = OK_dirs[x] + '/Cropped/CT.nii.gz'
+ct_dst = OneS_dirs[x] + '/Cropped/CT.nii.gz'
 print(ct_src)
 
-pet_src = glob(OK_dirs[x] + '/' + "*pet_from*")
+pet_src = glob(OneS_dirs[x] + '/' + "*pet_from*")
 pet_src = ''.join(pet_src)
-pet_dst = OK_dirs[x] + '/Cropped/PET.nii.gz'
+pet_dst = OneS_dirs[x] + '/Cropped/PET.nii.gz'
 
-gtv_src = glob(OK_dirs[x] + '/' + "*GTV_T.nii.gz")
+gtv_src = glob(OneS_dirs[x] + '/' + "*GTV_T.nii.gz")
 gtv_src = ''.join(gtv_src)
-gtv_dst = OK_dirs[x] + '/Cropped/GTV.nii.gz'
+gtv_dst = OneS_dirs[x] + '/Cropped/GTV.nii.gz'
 
 
-rel_src1 = glob(OK_dirs[x] + '/' + "*Relapse Volume_N.nii*")
+rel_src1 = glob(OneS_dirs[x] + '/' + "*Relapse deformed_cau.nii*")
 rel_src1 = ''.join(rel_src1)
-rel_src2 = glob(OK_dirs[x] + '/' + "*Relapse Volume_T.nii*")
+rel_src2 = glob(OneS_dirs[x] + '/' + "*Relapse deformed_cran.nii*")
 rel_src2 = ''.join(rel_src2)
-"""
-rel_src3 = glob(OK_dirs[x] + '/' + "*Relapse_deformed_T.nii*")
-rel_src3 = ''.join(rel_src3)
-
-rel_src = glob(OK_dirs[x] + '/' + "*Relapse*")
-rel_src = ''.join(rel_src)
-"""
-rel_dst = OK_dirs[x] + '/Cropped/Relapse.nii.gz'
+rel_dst = OneS_dirs[x] + '/Cropped/Relapse.nii.gz'
 
 
 rel_arr1 = read_image(rel_src1)
 rel_arr2 = read_image(rel_src2)
-#rel_arr3 = read_image(rel_src3)
 rel_fuse = rel_arr1 + rel_arr2 
 
 out_im = sitk.GetImageFromArray(rel_fuse)
@@ -111,14 +103,28 @@ BinThreshImFilt.SetOutsideValue(0)
 BinThreshImFilt.SetInsideValue(1)
 BinIm = BinThreshImFilt.Execute(Im)
 
+CT = read_image(ct_src)
+CT_cropped = CT[:,:, 1:]
+CT_itk = sitk.GetImageFromArray(CT_cropped)
+
+GTV = read_image(gtv_src)
+GTV_cropped = GTV[:,:, 1:]
+GTV_itk = sitk.GetImageFromArray(GTV_cropped)
+
+Relp = sitk.GetArrayFromImage(BinIm)
+Relp_cropped = Relp[:,:, 1:]
+Relp_itk = sitk.GetImageFromArray(Relp_cropped)
 
 
-
-shutil.copy2(ct_src, ct_dst)
-shutil.copy2(pet_src, pet_dst)
-shutil.copy2(gtv_src, gtv_dst)
+#shutil.copy2(ct_src, ct_dst)
+#shutil.copy2(pet_src, pet_dst)
+#shutil.copy2(gtv_src, gtv_dst)
 #shutil.copy2(rel_src, rel_dst)
-sitk.WriteImage(BinIm, rel_dst)
+
+sitk.WriteImage(CT_itk, ct_dst)
+shutil.copy2(pet_src, pet_dst)
+sitk.WriteImage(GTV_itk, gtv_dst)
+sitk.WriteImage(Relp_itk, rel_dst)
 
 
 
