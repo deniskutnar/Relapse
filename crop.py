@@ -80,11 +80,13 @@ gtv_dst = OK_dirs[x] + '/Cropped/GTV.nii.gz'
 rel_src = glob(OK_dirs[x] + '/' + "*Relapse*")
 rel_dst = OK_dirs[x] + '/Cropped/Relapse.nii.gz'
 
-#shutil.copyfile(src, dst)
+
 print("CT SOURCE: ", ct_src)
 print("PET SOURCE: ", pet_src)
 print("GTV SOURCE: ", gtv_src)
 print("Relapse SOURCE: ",rel_src)
+
+shutil.copyfile(ct_src, ct_dst)
 
 
 
