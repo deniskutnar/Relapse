@@ -67,7 +67,7 @@ Odd_dirs = ["/home/denis/samba_share/katrins_data/10147",
 # Copy PET,CT and find the GTV and Relapse 
 
 
-x = 6
+x = 7
 
 ct_src = glob(OneS_dirs[x] + '/' + "*ct_from*")
 ct_src = ''.join(ct_src)
