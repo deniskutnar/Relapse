@@ -69,7 +69,9 @@ Odd_dirs = ["/home/denis/samba_share/katrins_data/10147",
 
 x = 0
 ct_src = glob(OK_dirs[x] + '/' + "*ct_from*")
+ct_src2 = "/home/denis/samba_share/katrins_data/6747/ct_from_-663_to_195.nii.gz"
 ct_dst = OK_dirs[x] + '/Cropped/CT.nii.gz'
+
 
 
 pet_src = glob(OK_dirs[x] + '/' + "*pet_from*")
@@ -82,8 +84,10 @@ rel_src = glob(OK_dirs[x] + '/' + "*Relapse*")
 rel_dst = OK_dirs[x] + '/Cropped/Relapse.nii.gz'
 
 
-print("CT SOURCE: ", ct_src[1:-1])
+print("CT SOURCE: ", ct_src)
 print("CT Dest: ", ct_dst)
+
+
 #print("PET SOURCE: ", pet_src)
 #print("GTV SOURCE: ", gtv_src)
 #print("Relapse SOURCE: ",rel_src)
