@@ -16,7 +16,7 @@ print("GTV is: ",len(gtv_dirs))
 
 for f in range(len(gtv_dirs)):
     gtv = read_image(gtv_dirs[f])
-    print(gtv_dirs)
+    print(gtv_dirs[f])
     print(gtv.max())
     print("")
 
