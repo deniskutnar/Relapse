@@ -69,10 +69,22 @@ Odd_dirs = ["/home/denis/samba_share/katrins_data/10147",
 
 x = 0
 ct_src = glob(OK_dirs[x] + '/' + "*ct_from*")
-#ct_src = glob("/home/denis/samba_share/katrins_data/6747/*ct_from*")
-ct_dst = "/home/denis/samba_share/katrins_data/6747"
+ct_dst = OK_dirs[x] + '/Cropped/CT.nii.gz'
+
+pet_src = glob(OK_dirs[x] + '/' + "*pet_from*")
+pet_dst = OK_dirs[x] + '/Cropped/PET.nii.gz'
+
+gtv_src = glob(OK_dirs[x] + '/' + "*GTV.nii.gz")
+gtv_dst = OK_dirs[x] + '/Cropped/GTV.nii.gz'
+
+rel_src = glob(OK_dirs[x] + '/' + "*Relapse*")
+rel_dst = OK_dirs[x] + '/Cropped/Relapse.nii.gz'
+
 #shutil.copyfile(src, dst)
 print("CT SOURCE: ", ct_src)
+print("PET SOURCE: ", pet_src)
+print("GTV SOURCE: ", gtv_src)
+print("Relapse SOURCE: ",rel_src)
 
 
 
