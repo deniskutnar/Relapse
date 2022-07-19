@@ -67,7 +67,7 @@ Odd_dirs = ["/home/denis/samba_share/katrins_data/10147",
 # Copy PET,CT and find the GTV and Relapse 
 
 
-x = 2
+x = 3
 
 ct_src = glob(OneS_dirs[x] + '/' + "*ct_from*")
 ct_src = ''.join(ct_src)
@@ -129,9 +129,9 @@ Relp_itk = sitk.GetImageFromArray(Relp_cropped)
 #shutil.copy2(gtv_src, gtv_dst)
 #shutil.copy2(rel_src, rel_dst)
 
-#sitk.WriteImage(CT_itk, ct_dst)
-#shutil.copy2(pet_src, pet_dst)
-#sitk.WriteImage(GTV_itk, gtv_dst)
+sitk.WriteImage(CT_itk, ct_dst)
+shutil.copy2(pet_src, pet_dst)
+sitk.WriteImage(GTV_itk, gtv_dst)
 sitk.WriteImage(Relp_itk, rel_dst)
 
 
