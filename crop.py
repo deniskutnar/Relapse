@@ -83,7 +83,7 @@ gtv_src = ''.join(gtv_src)
 gtv_dst = OneS_dirs[x] + '/Cropped/GTV.nii.gz'
 
 
-rel_src1 = glob(OneS_dirs[x] + '/' + "*Relapse deformed_N.nii*")
+rel_src1 = glob(OneS_dirs[x] + '/' + "*Relapse*")
 rel_src1 = ''.join(rel_src1)
 rel_dst = OneS_dirs[x] + '/Cropped/Relapse.nii.gz'
 
