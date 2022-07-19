@@ -49,6 +49,7 @@ OneS_dirs = ["/home/denis/samba_share/katrins_data/8935", # missing relapse
 "/home/denis/samba_share/katrins_data/13648",
 "/home/denis/samba_share/katrins_data/13777",
 "/home/denis/samba_share/katrins_data/14034",
+
 "/home/denis/samba_share/katrins_data/14049",
 "/home/denis/samba_share/katrins_data/14401",
 "/home/denis/samba_share/katrins_data/14800",
@@ -70,7 +71,7 @@ Odd_dirs = ["/home/denis/samba_share/katrins_data/10147",
 # Copy PET,CT and find the GTV and Relapse 
 
 
-x = 18
+x = 19
 
 ct_src = glob(OneS_dirs[x] + '/' + "*ct_from*")
 ct_src = ''.join(ct_src)
@@ -86,23 +87,23 @@ gtv_src = ''.join(gtv_src)
 gtv_dst = OneS_dirs[x] + '/Cropped/GTV.nii.gz'
 
 
-rel_src1 = glob(OneS_dirs[x] + '/' + "*Relapse*")
+rel_src1 = glob(OneS_dirs[x] + '/' + "*relapse volume_L.nii*")
 rel_src1 = ''.join(rel_src1)
 rel_dst = OneS_dirs[x] + '/Cropped/Relapse.nii.gz'
 
-"""
-rel_src2 = glob(OneS_dirs[x] + '/' + "*Relapse volume_m.nii*")
+
+rel_src2 = glob(OneS_dirs[x] + '/' + "*relapse volume_R.nii*")
 rel_src2 = ''.join(rel_src2)
 
-rel_src3 = glob(OneS_dirs[x] + '/' + "*Relapse volume_s.nii*")
-rel_src3 = ''.join(rel_src3)
+#rel_src3 = glob(OneS_dirs[x] + '/' + "*Relapse volume_s.nii*")
+#rel_src3 = ''.join(rel_src3)
 
 
 
 rel_arr1 = read_image(rel_src1)
 rel_arr2 = read_image(rel_src2)
-rel_arr3 = read_image(rel_src3)
-rel_fuse = rel_arr1 + rel_arr2  + rel_arr3
+#rel_arr3 = read_image(rel_src3)
+rel_fuse = rel_arr1 + rel_arr2 
 
 out_im = sitk.GetImageFromArray(rel_fuse)
 Im = out_im
@@ -112,7 +113,7 @@ BinThreshImFilt.SetUpperThreshold(5)
 BinThreshImFilt.SetOutsideValue(0)
 BinThreshImFilt.SetInsideValue(1)
 BinIm = BinThreshImFilt.Execute(Im)
-"""
+
 
 CT = read_image(ct_src)
 CT_cropped = CT[:,:, 1:]
@@ -122,13 +123,13 @@ GTV = read_image(gtv_src)
 GTV_cropped = GTV[:,:, 1:]
 GTV_itk = sitk.GetImageFromArray(GTV_cropped)
 
-Relp = read_image(rel_src1)
-Relp_cropped = Relp[:,:, 1:]
-Relp_itk = sitk.GetImageFromArray(Relp_cropped)
-
-#Relp = sitk.GetArrayFromImage(BinIm)
+#Relp = read_image(rel_src1)
 #Relp_cropped = Relp[:,:, 1:]
 #Relp_itk = sitk.GetImageFromArray(Relp_cropped)
+
+Relp = sitk.GetArrayFromImage(BinIm)
+Relp_cropped = Relp[:,:, 1:]
+Relp_itk = sitk.GetImageFromArray(Relp_cropped)
 
 
 #shutil.copy2(ct_src, ct_dst)
