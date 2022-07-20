@@ -6,6 +6,7 @@ import pydicom
 import nibabel as nib
 from dicom_mask.convert import struct_to_mask
 import SimpleITK as sitk
+import dicom2nifti
 
 
 # Step 1: Iterate through the slices in the PET image and print the slice location and max suv value.
@@ -90,6 +91,13 @@ def get_struct_image(dicom_series_path, struct_name):
 
 ct_dir = "/home/denis/samba_share/katrins_data/7229/CT"
 pet_dir = "/home/denis/samba_share/katrins_data/7229/PET"
+
+
+
+dicom2nifti.convert_directory(ct_dir, 'CT/')
+
+exit()
+
 #ct = load_image_series(ct_dir)
 #pet = load_image_series(pet_dir)
 
