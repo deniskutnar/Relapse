@@ -60,11 +60,7 @@ pet_dir = "/home/denis/samba_share/katrins_data/7229/PET"
 
 image_series = []
 dicom_files = os.listdir(ct_dir)
-print(dicom_files)
-
-exit()
-
-fpath = os.path.join(ct_dir, 150)
+fpath = os.path.join(ct_dir, 'CT.1.3.12.2.1107.5.1.4.48485.30000009072108195915600000064.dcm')
 if os.path.isfile(fpath):
     fdataset = pydicom.dcmread(fpath, force=True)   ## Read slice
     mr_sop_class_uid = '1.2.840.10008.5.1.4.1.1.4'
