@@ -78,7 +78,7 @@ pet_dir = "/home/denis/samba_share/katrins_data/7229/PET"
 ct = load_image_series(ct_dir)
 pet = load_image_series(pet_dir)
 
-ct_image = get_scan_image(ct)
+ct_image = get_scan_image(ct_dir)
 print(ct_image)
 
 
