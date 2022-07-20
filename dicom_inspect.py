@@ -53,7 +53,7 @@ def load_image_series(dicom_dir):
 ct_dir = "/home/denis/samba_share/katrins_data/7229/CT"
 pet_dir = "/home/denis/samba_share/katrins_data/7229/PET"
 
-ct = load_image_series(ct_dir)
-#pet = load_image_series(pet_dirs)
+#ct = load_image_series(ct_dir)
+pet = load_image_series(pet_dirs)
 
-print(ct)
+print(pet)
