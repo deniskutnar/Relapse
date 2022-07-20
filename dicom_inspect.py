@@ -90,15 +90,27 @@ def get_struct_image(dicom_series_path, struct_name):
 
 ct_dir = "/home/denis/samba_share/katrins_data/7229/CT"
 pet_dir = "/home/denis/samba_share/katrins_data/7229/PET"
-ct = load_image_series(ct_dir)
-pet = load_image_series(pet_dir)
+#ct = load_image_series(ct_dir)
+#pet = load_image_series(pet_dir)
 
 ct_image = get_scan_image(ct_dir)
 ct_itk = sitk.GetImageFromArray(ct_image)
 
-mask_image = get_struct_image(ct_dir, 'GTV Radiolog')
+mask = get_struct_image(ct_dir, 'GTV Radiolog')
 
-print(mask_image)
+print(mask)
+
+print(f'SIZE:')
+print(f'CT: \t{mask.GetSize()}')
+print('-' * 40)
+print(f'SPACING:')
+print(f'CT: \t{mask.GetSpacing()}') 
+print('-' * 40)
+print(f'ORIGIN:')
+print(f'CT: \t{mask.GetOrigin()}') 
+print('-' * 40)
+print(f'DIRECTION:')
+print(f'CT: \t{mask.GetDirection()}') 
 
 
 
