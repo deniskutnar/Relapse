@@ -10,7 +10,7 @@ import dicom2nifti
 
 from nipype.interfaces.dcm2nii import Dcm2niix
 
-import glob
+from glob import glob
 
 
 # Step 1: Iterate through the slices in the PET image and print the slice location and max suv value.
@@ -98,8 +98,8 @@ ct_dir = "/home/denis/samba_share/katrins_data/7229/CT"
 pet_dir = "/home/denis/samba_share/katrins_data/7229/PET"
 folder_out = "/home/denis/samba_share/katrins_data/7229/Processed/"
 
-pet = convert_dcm_2_nii_x(pet_dir, folder_out)
-ct = convert_dcm_2_nii_x(ct_dir, folder_out)
+#pet = convert_dcm_2_nii_x(pet_dir, folder_out)
+#ct = convert_dcm_2_nii_x(ct_dir, folder_out)
 
 ct_nii_dir  = glob(folder_out + "*CT*")
 ct_nii_dir = ''.join(ct_nii)
