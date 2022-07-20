@@ -21,6 +21,9 @@ import dicom2nifti
 #          the data should be cropped and scaled to make it consistent.
 
 
+
+
+
 def load_image_series(dicom_dir):
     """
     Get all dicom image dataset files for a dicom series in a dicom dir.
@@ -51,8 +54,6 @@ def load_image_series(dicom_dir):
                 image_series.append(fdataset)
     image_series = sorted(image_series, key=lambda s: s.SliceLocation) # slice location 
     return image_series
-
-
 
 def get_scan_image(dicom_series_path):
     """ return dicom images as 3D numpy array 
@@ -95,6 +96,10 @@ pet_dir = "/home/denis/samba_share/katrins_data/7229/PET"
 
 
 #dicom2nifti.convert_directory(ct_dir, 'CT/')
+dicom2nifti.convert_directory(ct_dir, 'PET/')
+
+
+exit ()
 
 ct  = sitk.ReadImage('CT/5_ct__30mm_b40f.nii.gz')
 ct_numpy = sitk.GetArrayFromImage(ct)

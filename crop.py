@@ -16,6 +16,7 @@ from skimage.color import gray2rgb
 
 
 
+
 def resize_image_itk(ori_img, target_img, resamplemethod=sitk.sitkNearestNeighbor):
     """
     use itk Method to convert the original image resample To be consistent with the target image
