@@ -82,7 +82,7 @@ print(image_series)
 
 
 
-first_im = image_series
+first_im = image_series[0]
 height, width = first_im.pixel_array.shape
 depth = len(image_series_files)
 image = np.zeros((depth, height, width))  
