@@ -60,6 +60,10 @@ pet_dir = "/home/denis/samba_share/katrins_data/7229/PET"
 
 image_series = []
 dicom_files = os.listdir(ct_dir)
+print(dicom_files)
+
+exit()
+
 fpath = os.path.join(ct_dir, 150)
 if os.path.isfile(fpath):
     fdataset = pydicom.dcmread(fpath, force=True)   ## Read slice
