@@ -100,6 +100,9 @@ ct  = sitk.ReadImage('CT/5_ct__30mm_b40f.nii.gz')
 ct_numpy = sitk.GetArrayFromImage(ct)
 print(ct_numpy.shape)
 
+mask = get_struct_image(ct_dir, 'GTV Radiolog')
+mask = sitk.GetImageFromArray(mask)
+mask.CopyInformation(ct)
 
 
 print(f'SIZE:')
@@ -113,6 +116,18 @@ print(f'CT: \t{ct.GetOrigin()}')
 print('-' * 40)
 print(f'DIRECTION:')
 print(f'CT: \t{ct.GetDirection()}') 
+
+print(f'SIZE:')
+print(f'CT: \t{mask.GetSize()}')
+print('-' * 40)
+print(f'SPACING:')
+print(f'CT: \t{mask.GetSpacing()}') 
+print('-' * 40)
+print(f'ORIGIN:')
+print(f'CT: \t{mask.GetOrigin()}') 
+print('-' * 40)
+print(f'DIRECTION:')
+print(f'CT: \t{mask.GetDirection()}') 
 
 
 
