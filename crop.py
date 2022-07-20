@@ -39,6 +39,11 @@ def resize_image_itk(ori_img, target_img, resamplemethod=sitk.sitkNearestNeighbo
     itk_img_resampled = resampler.Execute(ori_img)  # Get the resampled image
     return itk_img_resampled
 
+def read_image(path):
+    img = sitk.ReadImage(path)
+    img_as_numpy = sitk.GetArrayFromImage(img).astype('float32')
+    return img_as_numpy
+
 
 
 ct_dir = "/home/denis/samba_share/katrins_data/7229/Cropped/CT.nii.gz"
@@ -69,6 +74,8 @@ ax[1][1].imshow(pet.max(0), cmap = 'gray')
 ax[1][1].imshow(mask.max(0), cmap = 'Reds', alpha=0.3)
 
 f.savefig("plot.png")
+
+
 
 
 def read_image(path):
