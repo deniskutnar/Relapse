@@ -113,7 +113,8 @@ pet  = sitk.ReadImage(pet_nii_dir)
 
 
 
-
+ct = sitk.GetArrayFromImage(ct)
+pet = sitk.GetArrayFromImage(pet)
 ct_slice = ct[ct.shape[0]//2, :, :]
 pet_slice = pet[pet.shape[0]//2, :, :]
 
