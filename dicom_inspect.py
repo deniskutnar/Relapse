@@ -5,6 +5,7 @@ import numpy as np
 import pydicom
 import nibabel as nib
 from dicom_mask.convert import struct_to_mask
+import SimpleITK as sitk
 
 
 # Step 1: Iterate through the slices in the PET image and print the slice location and max suv value.
@@ -80,6 +81,20 @@ pet = load_image_series(pet_dir)
 
 ct_image = get_scan_image(ct_dir)
 print(ct_image)
+
+ct_itk = sitk.GetImageFromArray(ct_image)
+
+print(f'SIZE:')
+print(f'CT: \t{ct_itk.GetSize()}')
+print('-' * 40)
+print(f'SPACING:')
+print(f'CT: \t{ct_itk.GetSpacing()}') 
+print('-' * 40)
+print(f'ORIGIN:')
+print(f'CT: \t{ct_itk.GetOrigin()}') 
+print('-' * 40)
+print(f'DIRECTION:')
+print(f'CT: \t{ct_itk.GetDirection()}') 
 
 
 
