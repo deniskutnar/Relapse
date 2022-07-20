@@ -5,6 +5,11 @@ from glob import glob
 import shutil
 from pydicom import dcmread
 import matplotlib.pyplot as plt
+import skimage
+from skimage.io import imsave
+
+
+
 
 
 
@@ -50,18 +55,23 @@ ct_dir = "/home/denis/samba_share/katrins_data/7229/Cropped/CT.nii.gz"
 pet_dir = "/home/denis/samba_share/katrins_data/7229/Cropped/PET.nii.gz"
 mask_dir = "/home/denis/samba_share/katrins_data/7229/Cropped/GTV.nii.gz"
 
+
+
+
 ## resample PET --> CT
-t_img = sitk.ReadImage(ct_dir)
-o_img = sitk.ReadImage(pet_dir)
-reg_pet = resize_image_itk(o_img, t_img, sitk.sitkLinear)
+#t_img = sitk.ReadImage(ct_dir)
+#o_img = sitk.ReadImage(pet_dir)
+#reg_pet = resize_image_itk(o_img, t_img, sitk.sitkLinear)
 
 ct = read_image(ct_dir)
-pet = sitk.GetArrayFromImage(reg_pet).astype('float32')
+pet = read_image(pet_dir)
 mask = read_image(mask_dir)
 
 print(ct.shape)
 print(pet.shape)
 print(mask.shape)
+
+exit()
 
 f, ax = plt.subplots(2, 2, figsize=(10, 10))
 ax[0][0].imshow(ct.max(0),  cmap = 'gray')
