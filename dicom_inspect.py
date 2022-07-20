@@ -60,7 +60,7 @@ pet_dir = "/home/denis/samba_share/katrins_data/7229/PET"
 
 image_series = []
 dicom_files = os.listdir(ct_dir)
-fpath = os.path.join(dicom_dir, 150)
+fpath = os.path.join(ct_dir, 150)
 if os.path.isfile(fpath):
     fdataset = pydicom.dcmread(fpath, force=True)   ## Read slice
     mr_sop_class_uid = '1.2.840.10008.5.1.4.1.1.4'
@@ -75,7 +75,7 @@ if os.path.isfile(fpath):
 
     if fdataset.SOPClassUID in [mr_sop_class_uid, ct_sop_class_uid, pet, enhanced_pet, legacy_pet]:
         image_series.append(fdataset)
-        
+
 image_series = sorted(image_series, key=lambda s: s.SliceLocation) # slice location 
 
 print(image_series)
