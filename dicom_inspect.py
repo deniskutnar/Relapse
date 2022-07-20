@@ -107,8 +107,21 @@ def convert_dcm_2_nii_x(dcm_folder, output_folder):
     converter.run()
 
 #pet = convert_dcm_2_nii_x(pet_dir, 'PET/')
+#ct = convert_dcm_2_nii_x(ct_dir, 'CT/')
 
-ct = convert_dcm_2_nii_x(ct_dir, 'CT/')
+ct  = sitk.ReadImage('CT/CT_CT_3.0mm_B40f_20090721101551_5.nii.gz')
+
+print(f'SIZE:')
+print(f'CT: \t{ct.GetSize()}')
+print('-' * 40)
+print(f'SPACING:')
+print(f'CT: \t{ct.GetSpacing()}') 
+print('-' * 40)
+print(f'ORIGIN:')
+print(f'CT: \t{ct.GetOrigin()}') 
+print('-' * 40)
+print(f'DIRECTION:')
+print(f'CT: \t{ct.GetDirection()}') 
 
 
 
