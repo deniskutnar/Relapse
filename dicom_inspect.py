@@ -52,8 +52,30 @@ def load_image_series(dicom_dir):
 
 ct_dir = "/home/denis/samba_share/katrins_data/7229/CT"
 pet_dir = "/home/denis/samba_share/katrins_data/7229/PET"
-
 #ct = load_image_series(ct_dir)
-pet = load_image_series(pet_dir)
+#pet = load_image_series(pet_dir)
+#print(pet)
 
-print(pet)
+
+
+image_series = []
+dicom_files = os.listdir(ct_dir)
+fpath = os.path.join(dicom_dir, 150)
+if os.path.isfile(fpath):
+    fdataset = pydicom.dcmread(fpath, force=True)   ## Read slice
+    mr_sop_class_uid = '1.2.840.10008.5.1.4.1.1.4'
+    ct_sop_class_uid = '1.2.840.10008.5.1.4.1.1.2'
+    pet = '1.2.840.10008.5.1.4.1.1.128'
+    enhanced_pet = '1.2.840.10008.5.1.4.1.1.130'
+    legacy_pet = '1.2.840.10008.5.1.4.1.1.128.1'
+
+    #print('transfer syntax = ', fdataset.file_meta.TransferSyntaxUID)
+    if not hasattr(fdataset.file_meta, 'TransferSyntaxUID'):
+        fdataset.file_meta.TransferSyntaxUID = '1.2.840.10008.1.2' 
+            if fdataset.SOPClassUID in [mr_sop_class_uid, ct_sop_class_uid,
+                                        pet, enhanced_pet, legacy_pet]:
+                image_series.append(fdataset)
+image_series = sorted(image_series, key=lambda s: s.SliceLocation) # slice location 
+
+print(image_series)
+
