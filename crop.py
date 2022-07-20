@@ -86,11 +86,11 @@ pet_ct_stack = np.hstack((pet_slice_r, ct_slice))
 #imsave('pet_ct_stack.png', pet_ct_stack)
 
 
-pet_high_suv = pet_slice_r > (np.mean(pet_slice_r) * 20)
+pet_high_suv = pet_slice_r > (np.mean(pet_slice_r) * 10)
 imsave('pet_high_suv.png', pet_high_suv)
 ct_with_high_suv = np.array(ct_slice)
 ct_with_high_suv[pet_high_suv > 0] = np.max(ct_with_high_suv)
-imsave('ct_with_high_suv_20.png', ct_with_high_suv)
+imsave('ct_with_high_suv_10.png', ct_with_high_suv)
 
 
 
