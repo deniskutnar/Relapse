@@ -96,7 +96,7 @@ pet = load_image_series(pet_dir)
 ct_image = get_scan_image(ct_dir)
 ct_itk = sitk.GetImageFromArray(ct_image)
 
-mask_image = get_struct_image(ct_dir, 'GTV')
+mask_image = get_struct_image(ct_dir, 'GTV Radiolog')
 
 print(mask_image)
 
