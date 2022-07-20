@@ -94,7 +94,7 @@ pet_dir = "/home/denis/samba_share/katrins_data/7229/PET"
 
 
 
-dicom2nifti.convert_directory(ct_dir, 'CT/')
+dicom2nifti.convert_directory(ct_dir, 'CT/CT.nii.gz')
 
 exit()
 
