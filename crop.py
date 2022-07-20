@@ -54,17 +54,10 @@ def read_image(path):
 
 
 
-ct_dir = "/home/denis/samba_share/katrins_data/7229/Cropped/CT.nii.gz"
-pet_dir = "/home/denis/samba_share/katrins_data/7229/Cropped/PET.nii.gz"
-mask_dir = "/home/denis/samba_share/katrins_data/7229/Cropped/GTV.nii.gz"
+ct_dir = "/home/denis/samba_share/katrins_data/6823/Cropped/CT.nii.gz"
+pet_dir = "/home/denis/samba_share/katrins_data/6823/Cropped/PET.nii.gz"
+mask_dir = "/home/denis/samba_share/katrins_data/6823/Cropped/GTV.nii.gz"
 
-
-
-
-## resample PET --> CT
-#t_img = sitk.ReadImage(ct_dir)
-#o_img = sitk.ReadImage(pet_dir)
-#reg_pet = resize_image_itk(o_img, t_img, sitk.sitkLinear)
 
 ct = read_image(ct_dir)
 pet = read_image(pet_dir)
@@ -117,7 +110,7 @@ imsave('pet_ct_red_green.png', pet_ct_red_green)
 pet_ct_red_green[:, :, 0] = ct_norm
 pet_ct_red_green[:, :, 1] = pet_norm
 pet_ct_red_green[:, :, 2] = pet_norm > (np.mean(pet_norm) / 3)
-imsave('pet_ct_red_green_5x_3x.png', pet_ct_red_green)
+imsave('6823_rgb.png', pet_ct_red_green)
 
 
 exit()
