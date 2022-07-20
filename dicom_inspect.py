@@ -97,6 +97,7 @@ ct_image = get_scan_image(ct_dir)
 ct_itk = sitk.GetImageFromArray(ct_image)
 
 mask = get_struct_image(ct_dir, 'GTV Radiolog')
+mask = sitk.GetImageFromArray(mask)
 
 print(mask)
 
