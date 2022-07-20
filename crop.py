@@ -103,9 +103,9 @@ print("PET max: ", pet_slice.max())
 print("PET min: ", pet_slice.min())
 
 ct_norm = ct_slice - np.min(ct_slice)
-ct_norm = ct_norm / np.max(ct_slice)
-pet_norm = pet_slice - np.min(pet_slice)
-pet_norm = pet_norm / np.max(pet_slice)
+ct_norm = ct_norm / np.max(ct_norm)
+pet_norm = pet_slice_r - np.min(pet_slice_r)
+pet_norm = pet_norm / np.max(pet_norm)
 pet_ct_red_green = gray2rgb(ct_norm)
 pet_ct_red_green[:, :, 0] = ct_norm
 pet_ct_red_green[:, :, 1] = pet_norm
