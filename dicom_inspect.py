@@ -101,20 +101,18 @@ ct_numpy = sitk.GetArrayFromImage(ct)
 print(ct_numpy.shape)
 
 
-exit()
 
-ct_itk = sitk.GetImageFromArray('CT/5_ct__30mm_b40f.nii.gz')
 print(f'SIZE:')
-print(f'CT: \t{ct_itk.GetSize()}')
+print(f'CT: \t{ct.GetSize()}')
 print('-' * 40)
 print(f'SPACING:')
-print(f'CT: \t{ct_itk.GetSpacing()}') 
+print(f'CT: \t{ct.GetSpacing()}') 
 print('-' * 40)
 print(f'ORIGIN:')
-print(f'CT: \t{ct_itk.GetOrigin()}') 
+print(f'CT: \t{ct.GetOrigin()}') 
 print('-' * 40)
 print(f'DIRECTION:')
-print(f'CT: \t{ct_itk.GetDirection()}') 
+print(f'CT: \t{ct.GetDirection()}') 
 
 
 
