@@ -54,6 +54,6 @@ ct_dir = "/home/denis/samba_share/katrins_data/7229/CT"
 pet_dir = "/home/denis/samba_share/katrins_data/7229/PET"
 
 #ct = load_image_series(ct_dir)
-pet = load_image_series(pet_dirs)
+pet = load_image_series(pet_dir)
 
 print(pet)
