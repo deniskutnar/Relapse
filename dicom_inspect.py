@@ -10,6 +10,8 @@ import dicom2nifti
 
 from nipype.interfaces.dcm2nii import Dcm2niix
 
+import glob
+
 
 # Step 1: Iterate through the slices in the PET image and print the slice location and max suv value.
 # Step 2: take note of the slice location of a slice with a high suv value (max if obvious)
@@ -25,57 +27,24 @@ from nipype.interfaces.dcm2nii import Dcm2niix
 
 
 
+# 1. convert CT with 'Dcm2niix'
+# 2. get structures with 'get_struct_image' and copy info
+# 3. convert PET with 'Dcm2niix'
+# 4. remove extra slices from CT 
+# 5. Resample PET ---> CT with 'resize_image_itk'
+# 6. Plot RGB overlay 
+# 7. Normalize + Clip the data (HU)
+# 7. Create hdf5
 
 
 
 
-def load_image_series(dicom_dir):
-    """
-    Get all dicom image dataset files for a dicom series in a dicom dir.
-    """
-    image_series = []
-    dicom_files = os.listdir(dicom_dir)
-    for f in dicom_files:
-        fpath = os.path.join(dicom_dir, f)
-        if os.path.isfile(fpath):
-            fdataset = pydicom.dcmread(fpath, force=True)   ## Read slice
-            # Computed Radiography Image Storage SOP Class UID
-            # https://dicom.nema.org/dicom/2013/output/chtml/part04/sect_B.5.html
-            mr_sop_class_uid = '1.2.840.10008.5.1.4.1.1.4'
-            ct_sop_class_uid = '1.2.840.10008.5.1.4.1.1.2'
-            pet = '1.2.840.10008.5.1.4.1.1.128'
-            enhanced_pet = '1.2.840.10008.5.1.4.1.1.130'
-            legacy_pet = '1.2.840.10008.5.1.4.1.1.128.1'
-
-            #print('transfer syntax = ', fdataset.file_meta.TransferSyntaxUID)
-            if not hasattr(fdataset.file_meta, 'TransferSyntaxUID'):
-                # fall back to default TransferSyntaxUID
-                # https://dicomlibrary.com/dicom/transfer-syntax/
-                # 1.2.840.10008.1.2	Implicit VR Endian: Default Transfer Syntax for DICOM
-                fdataset.file_meta.TransferSyntaxUID = '1.2.840.10008.1.2' 
-
-            if fdataset.SOPClassUID in [mr_sop_class_uid, ct_sop_class_uid,
-                                        pet, enhanced_pet, legacy_pet]:
-                image_series.append(fdataset)
-    image_series = sorted(image_series, key=lambda s: s.SliceLocation) # slice location 
-    return image_series
-
-def get_scan_image(dicom_series_path):
-    """ return dicom images as 3D numpy array 
-        warning: this function assumes the file names
-                 sorted alpha-numerically correspond to the
-                 position of the dicom slice in the z-dimension (depth)
-                 if this assumption does not hold then you may need
-                 to sort them based on their metadata (actual position in space).
-    """
-    image_series_files = load_image_series(dicom_series_path)
-    first_im = image_series_files[0]
-    height, width = first_im.pixel_array.shape
-    depth = len(image_series_files)
-    image = np.zeros((depth, height, width))
-    for i, im in enumerate(image_series_files):
-        image[i] = im.pixel_array ## pixel - SUV value , as array 
-    return image
+def convert_dcm_2_nii_x(dcm_folder, output_folder):    
+    converter = Dcm2niix()    
+    converter.inputs.source_dir = dcm_folder    
+    converter.inputs.output_dir = output_folder    
+    converter.inputs.compress = 'i'    
+    converter.run()
 
 def get_struct_image(dicom_series_path, struct_name):
     dicom_files = [d for d in os.listdir(dicom_series_path) if d.endswith('.dcm')]
@@ -93,23 +62,107 @@ def get_struct_image(dicom_series_path, struct_name):
                         'consistently and non-empty?')
     return mask
 
+def resize_image_itk(ori_img, target_img, resamplemethod=sitk.sitkNearestNeighbor):
+    """
+    use itk Method to convert the original image resample To be consistent with the target image
+    :param ori_img: Original alignment required itk image
+    :param target_img: Target to align itk image
+    :param resamplemethod: itk interpolation method : sitk.sitkLinear-linear  sitk.sitkNearestNeighbor-Nearest neighbor
+    :return:img_res_itk: Resampling okay itk image
+    """
+    target_Size = target_img.GetSize()      # Target image size [x,y,z]
+    target_Spacing = target_img.GetSpacing()   # Voxel block size of the target [x,y,z]
+    target_origin = target_img.GetOrigin()      # Starting point of target [x,y,z]
+    target_direction = target_img.GetDirection()  # Target direction [crown, sagittal, transverse] = [z,y,x]
+
+    # The method of itk is resample
+    resampler = sitk.ResampleImageFilter()
+    resampler.SetReferenceImage(ori_img)  # Target image to resample
+    # Set the information of the target image
+    resampler.SetSize(target_Size)		# Target image size
+    resampler.SetOutputOrigin(target_origin)
+    resampler.SetOutputDirection(target_direction)
+    resampler.SetOutputSpacing(target_Spacing)
+    # Set different dype according to the need to resample the image
+    if resamplemethod == sitk.sitkNearestNeighbor:
+        resampler.SetOutputPixelType(sitk.sitkUInt16)   # Nearest neighbor interpolation is used for mask, and uint16 is saved
+    else:
+        resampler.SetOutputPixelType(sitk.sitkFloat32)  # Linear interpolation is used for PET/CT/MRI and the like, and float32 is saved
+    resampler.SetTransform(sitk.Transform(3, sitk.sitkIdentity))    
+    resampler.SetInterpolator(resamplemethod)
+    itk_img_resampled = resampler.Execute(ori_img)  # Get the resampled image
+    return itk_img_resampled
 
 
 ct_dir = "/home/denis/samba_share/katrins_data/7229/CT"
 pet_dir = "/home/denis/samba_share/katrins_data/7229/PET"
+folder_out = "/home/denis/samba_share/katrins_data/7229/Processed/"
+
+pet = convert_dcm_2_nii_x(pet_dir, folder_out)
+ct = convert_dcm_2_nii_x(ct_dir, folder_out)
+
+ct_nii_dir  = glob(folder_out + "*CT*")
+ct_nii_dir = ''.join(ct_nii)
+pet_nii_dir  = glob(folder_out + "*PET*")
+pet_nii_dir = ''.join(pet_nii)
+
+ct  = sitk.ReadImage(ct_nii_dir)
+pet  = sitk.ReadImage(pet_nii_dir)
 
 
-def convert_dcm_2_nii_x(dcm_folder, output_folder):    
-    converter = Dcm2niix()    
-    converter.inputs.source_dir = dcm_folder    
-    converter.inputs.output_dir = output_folder    
-    converter.inputs.compress = 'i'    
-    converter.run()
+gtv = get_struct_image(ct_dir, 'GTV Radiolog')
+gtv = sitk.GetImageFromArray(gtv)
+gtv.CopyInformation(ct)
+sitk.WriteImage(gtv, folder_out + 'GTV.nii.gz')
 
-#pet = convert_dcm_2_nii_x(pet_dir, 'PET/')
-#ct = convert_dcm_2_nii_x(ct_dir, 'CT/')
+relapse = get_struct_image(ct_dir, 'Relapse deformed')
+relapse = sitk.GetImageFromArray(relapse)
+relapse.CopyInformation(ct)
+sitk.WriteImage(relapse, folder_out + 'Relapse.nii.gz')
 
-ct  = sitk.ReadImage('CT/CT_CT_3.0mm_B40f_20090721101551_5.nii.gz')
+
+print(f'SIZE:')
+print(f'CT: \t{ct.GetSize()} \nPET: \t{pet.GetSize()} \nGTV: \t{gtv.GetSize()} \nRelapse: \t{relapse.GetSize()}')
+print('-' * 40)
+print(f'SPACING:')
+print(f'CT: \t{ct.GetSpacing()} \nPET: \t{pet.GetSpacing()} \nGTV: \t{gtv.GetSpacing()} \nRelapse: \t{relapse.GetSpacing()}') 
+print('-' * 40)
+print(f'ORIGIN:')
+print(f'CT: \t{ct.GetOrigin()} \nPET: \t{pet.GetOrigin()} \nGTV: \t{gtv.GetOrigin()} \nRelapse: \t{relapse.GetOrigin()}') 
+print('-' * 40)
+print(f'DIRECTION:')
+print(f'CT: \t{ct.GetDirection()} \nPET: \t{pet.GetDirection()} \nGTV: \t{gtv.GetDirection()} \nRelapse: \t{relapse.GetDirection()}') 
+
+print("")
+
+### Resample 
+pet_res = resize_image_itk(pet, ct, sitk.sitkLinear)
+
+
+print(f'SIZE:')
+print(f'CT: \t{ct.GetSize()} \nPET: \t{pet_res.GetSize()} \nGTV: \t{gtv.GetSize()} \nRelapse: \t{relapse.GetSize()}')
+print('-' * 40)
+print(f'SPACING:')
+print(f'CT: \t{ct.GetSpacing()} \nPET: \t{pet_res.GetSpacing()} \nGTV: \t{gtv.GetSpacing()} \nRelapse: \t{relapse.GetSpacing()}') 
+print('-' * 40)
+print(f'ORIGIN:')
+print(f'CT: \t{ct.GetOrigin()} \nPET: \t{pet_res.GetOrigin()} \nGTV: \t{gtv.GetOrigin()} \nRelapse: \t{relapse.GetOrigin()}') 
+print('-' * 40)
+print(f'DIRECTION:')
+print(f'CT: \t{ct.GetDirection()} \nPET: \t{pet_res.GetDirection()} \nGTV: \t{gtv.GetDirection()} \nRelapse: \t{relapse.GetDirection()}') 
+
+
+
+
+
+
+
+
+
+
+
+exit()
+
 
 print(f'SIZE:')
 print(f'CT: \t{ct.GetSize()}')
@@ -122,6 +175,20 @@ print(f'CT: \t{ct.GetOrigin()}')
 print('-' * 40)
 print(f'DIRECTION:')
 print(f'CT: \t{ct.GetDirection()}') 
+
+print("")
+
+print(f'SIZE:')
+print(f'CT: \t{pet.GetSize()}')
+print('-' * 40)
+print(f'SPACING:')
+print(f'CT: \t{pet.GetSpacing()}') 
+print('-' * 40)
+print(f'ORIGIN:')
+print(f'CT: \t{pet.GetOrigin()}') 
+print('-' * 40)
+print(f'DIRECTION:')
+print(f'CT: \t{pet.GetDirection()}') 
 
 
 
