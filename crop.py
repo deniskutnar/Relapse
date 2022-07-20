@@ -71,6 +71,9 @@ print(ct.shape)
 print(pet.shape)
 print(mask.shape)
 
+ct_slice = ct[ct.shape[0]//2, :, :]
+imsave('ct_slice.png', ct_slice)
+
 exit()
 
 f, ax = plt.subplots(2, 2, figsize=(10, 10))
