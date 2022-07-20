@@ -114,8 +114,8 @@ imsave('pet_ct_red_green.png', pet_ct_red_green)
 
 
 
-pet_ct_red_green[:, :, 0] = ct_norm*3
-pet_ct_red_green[:, :, 1] = pet_norm*5
+pet_ct_red_green[:, :, 0] = ct_norm
+pet_ct_red_green[:, :, 1] = pet_norm
 pet_ct_red_green[:, :, 2] = pet_norm > (np.mean(pet_norm) / 3)
 imsave('pet_ct_red_green_5x_3x.png', pet_ct_red_green)
 
