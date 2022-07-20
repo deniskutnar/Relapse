@@ -111,6 +111,7 @@ pet_nii_dir = ''.join(pet_nii_dir)
 ct  = sitk.ReadImage(ct_nii_dir)
 pet  = sitk.ReadImage(pet_nii_dir)
 
+pet = resize_image_itk(pet, ct, sitk.sitkLinear)
 
 
 ct = sitk.GetArrayFromImage(ct)
