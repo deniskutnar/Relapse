@@ -96,7 +96,11 @@ ct_with_high_suv[pet_high_suv > 0] = np.max(ct_with_high_suv)
 
 pet_ct_red_green = gray2rgb(ct_slice)
 print('rgb image shape = ', pet_ct_red_green.shape)
+print("CT max: ", ct_slice.max())
+print("CT min: ", ct_slice.min())
 
+print("PET max: ", pet_slice.max())
+print("PET min: ", pet_slice.min())
 
 
 exit()
