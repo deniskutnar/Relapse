@@ -123,6 +123,10 @@ pet = sitk.ReadImage(pet_nii_dir)
 mask = sitk.ReadImage(gtv_nii_dir)
 
 
+ct = sitk.GetArrayFromImage(ct)
+pet = sitk.GetArrayFromImage(pet)
+mask = sitk.GetArrayFromImage(mask)
+
 f, ax = plt.subplots(2, 2, figsize=(10, 10))
 ax[0][0].imshow(ct.max(0),  cmap = 'gray')
 ax[0][0].imshow(pet.max(0),  cmap = 'Reds', alpha=0.3)
