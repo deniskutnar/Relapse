@@ -96,7 +96,12 @@ pet_dir = "/home/denis/samba_share/katrins_data/7229/PET"
 
 #dicom2nifti.convert_directory(ct_dir, 'CT/')
 
+ct  = sitk.ReadImage('CT/5_ct__30mm_b40f.nii.gz')
+ct_numpy = sitk.GetArrayFromImage(ct)
+print(ct_numpy.shape)
 
+
+exit()
 
 ct_itk = sitk.GetImageFromArray('CT/5_ct__30mm_b40f.nii.gz')
 print(f'SIZE:')
