@@ -80,14 +80,31 @@ pet_slice = pet[pet.shape[0]//2, :, :]
 #imsave('pet_slice.png', pet_slice)
 
 pet_slice_r = resize(pet_slice, ct_slice.shape)
-imsave('pet_slice_resized.png', pet_slice_r)
+#imsave('pet_slice_resized.png', pet_slice_r)
 
 pet_ct_stack = np.hstack((pet_slice_r, ct_slice))
-imsave('pet_ct_stack.png', pet_ct_stack)
+#imsave('pet_ct_stack.png', pet_ct_stack)
+
+
+pet_high_suv = pet_slice_r > (np.mean(pet_slice_r) * 2)
+imsave('pet_high_suv.png', pet_high_suv)
+ct_with_high_suv = np.array(ct_slice)
+ct_with_high_suv[pet_high_suv > 0] = np.max(ct_with_high_suv)
+imsave('ct_with_high_suv.png', ct_with_high_suv)
 
 
 
 exit()
+
+
+
+
+
+
+
+
+
+
 
 f, ax = plt.subplots(2, 2, figsize=(10, 10))
 ax[0][0].imshow(ct.max(0),  cmap = 'gray')
