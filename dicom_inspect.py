@@ -106,7 +106,7 @@ def convert_dcm_2_nii_x(dcm_folder, output_folder):
     converter.inputs.compress = 'i'    
     converter.run()
 
-pet = onvert_dcm_2_nii_x(pet_dir, 'PET/')
+pet = convert_dcm_2_nii_x(pet_dir, 'PET/')
 
 
 exit()
