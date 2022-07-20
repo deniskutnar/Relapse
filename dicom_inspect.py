@@ -50,44 +50,37 @@ def load_image_series(dicom_dir):
     image_series = sorted(image_series, key=lambda s: s.SliceLocation) # slice location 
     return image_series
 
+
+
+def get_scan_image(dicom_series_path):
+    """ return dicom images as 3D numpy array 
+        warning: this function assumes the file names
+                 sorted alpha-numerically correspond to the
+                 position of the dicom slice in the z-dimension (depth)
+                 if this assumption does not hold then you may need
+                 to sort them based on their metadata (actual position in space).
+    """
+    image_series_files = load_image_series(dicom_series_path)
+    first_im = image_series_files[0]
+    height, width = first_im.pixel_array.shape
+    depth = len(image_series_files)
+    image = np.zeros((depth, height, width))
+    for i, im in enumerate(image_series_files):
+        image[i] = im.pixel_array ## pixel - SUV value , as array 
+    return image
+
+
+
+
+
 ct_dir = "/home/denis/samba_share/katrins_data/7229/CT"
 pet_dir = "/home/denis/samba_share/katrins_data/7229/PET"
-#ct = load_image_series(ct_dir)
-#pet = load_image_series(pet_dir)
-#print(pet)
+ct = load_image_series(ct_dir)
+pet = load_image_series(pet_dir)
+
+ct_image = get_scan_image(ct)
+print(ct_image)
 
 
 
-image_series = []
-dicom_files = os.listdir(ct_dir)
-fpath = os.path.join(ct_dir, 'CT.1.3.12.2.1107.5.1.4.48485.30000009072108195915600000064.dcm')
-if os.path.isfile(fpath):
-    fdataset = pydicom.dcmread(fpath, force=True)   ## Read slice
-    mr_sop_class_uid = '1.2.840.10008.5.1.4.1.1.4'
-    ct_sop_class_uid = '1.2.840.10008.5.1.4.1.1.2'
-    pet = '1.2.840.10008.5.1.4.1.1.128'
-    enhanced_pet = '1.2.840.10008.5.1.4.1.1.130'
-    legacy_pet = '1.2.840.10008.5.1.4.1.1.128.1'
-
-    #print('transfer syntax = ', fdataset.file_meta.TransferSyntaxUID)
-    if not hasattr(fdataset.file_meta, 'TransferSyntaxUID'):
-        fdataset.file_meta.TransferSyntaxUID = '1.2.840.10008.1.2' 
-
-    if fdataset.SOPClassUID in [mr_sop_class_uid, ct_sop_class_uid, pet, enhanced_pet, legacy_pet]:
-        image_series.append(fdataset)
-image_series = sorted(image_series, key=lambda s: s.SliceLocation) # slice location 
-
-print(image_series)
-
-
-
-
-first_im = image_series[0]
-height, width = first_im.pixel_array.shape
-#depth = len(image_series_files)
-image = np.zeros((height, width))  
-print(image)
-image = image_series[0].pixel_array ## pixel - SUV value , as array 
-print(image)
-print(image.shape)
 
