@@ -103,11 +103,9 @@ folder_out = "/home/denis/samba_share/katrins_data/7229/Processed/"
 
 ct_nii_dir  = glob(folder_out + "*CT*.nii.gz")
 ct_nii_dir = ''.join(ct_nii_dir)
-print(ct_nii_dir)
 
-exit()
 
-pet_nii_dir  = glob(folder_out + "*PET*")
+pet_nii_dir  = glob(folder_out + "*PET*nii.gz")
 pet_nii_dir = ''.join(pet_nii_dir)
 
 ct  = sitk.ReadImage(ct_nii_dir)
