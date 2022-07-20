@@ -75,8 +75,19 @@ if os.path.isfile(fpath):
 
     if fdataset.SOPClassUID in [mr_sop_class_uid, ct_sop_class_uid, pet, enhanced_pet, legacy_pet]:
         image_series.append(fdataset)
-
 image_series = sorted(image_series, key=lambda s: s.SliceLocation) # slice location 
 
 print(image_series)
+
+
+
+
+first_im = image_series
+height, width = first_im.pixel_array.shape
+depth = len(image_series_files)
+image = np.zeros((depth, height, width))  
+print(image)
+image = im.pixel_array ## pixel - SUV value , as array 
+print(image)
+print(image.shape)
 
