@@ -8,6 +8,8 @@ from dicom_mask.convert import struct_to_mask
 import SimpleITK as sitk
 import dicom2nifti
 
+from nipype.interfaces.dcm2nii import Dcm2niix
+
 
 # Step 1: Iterate through the slices in the PET image and print the slice location and max suv value.
 # Step 2: take note of the slice location of a slice with a high suv value (max if obvious)
@@ -19,6 +21,9 @@ import dicom2nifti
 #          Also try to find the information that tells us about the slice position relative to patient origin in x and y.
 #          The idea is to inspect the dicom data and read the dicom documentation to try to figure out how
 #          the data should be cropped and scaled to make it consistent.
+
+
+
 
 
 
@@ -93,7 +98,18 @@ def get_struct_image(dicom_series_path, struct_name):
 ct_dir = "/home/denis/samba_share/katrins_data/7229/CT"
 pet_dir = "/home/denis/samba_share/katrins_data/7229/PET"
 
+from nipype.interfaces.dcm2nii import Dcm2niix
+def convert_dcm_2_nii_x(dcm_folder, output_folder):    
+    converter = Dcm2niix()    
+    converter.inputs.source_dir = dcm_folder    
+    converter.inputs.output_dir = output_folder    
+    converter.inputs.compress = 'i'    
+    converter.run()
 
+pet = onvert_dcm_2_nii_x(pet_dir, 'PET/')
+
+
+exit()
 
 #dicom2nifti.convert_directory(ct_dir, 'CT/')
 dicom2nifti.convert_directory(pet_dir, 'PET/pet.nii.gz')
