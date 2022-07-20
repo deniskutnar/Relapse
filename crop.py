@@ -110,10 +110,13 @@ pet_ct_red_green = gray2rgb(ct_norm)
 pet_ct_red_green[:, :, 0] = ct_norm
 pet_ct_red_green[:, :, 1] = pet_norm
 pet_ct_red_green[:, :, 2] = ct_norm
-
 imsave('pet_ct_red_green.png', pet_ct_red_green)
 
 
+pet_ct_red_green[:, :, 0] = ct_norm
+pet_ct_red_green[:, :, 1] = pet_norm*5
+pet_ct_red_green[:, :, 2] = pet_norm
+imsave('pet_ct_red_green_5x.png', pet_ct_red_green)
 
 
 exit()
