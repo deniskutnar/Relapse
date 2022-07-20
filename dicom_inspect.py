@@ -16,6 +16,8 @@ from skimage.io import imsave
 from skimage.transform import resize
 from skimage.color import gray2rgb
 
+import matplotlib.pyplot as plt
+
 
 # Step 1: Iterate through the slices in the PET image and print the slice location and max suv value.
 # Step 2: take note of the slice location of a slice with a high suv value (max if obvious)
@@ -112,38 +114,25 @@ ct_nii_dir = ''.join(ct_nii_dir)
 pet_nii_dir  = glob(folder_out + "*PET*nii.gz")
 pet_nii_dir = ''.join(pet_nii_dir)
 
+gtv_nii_dir  = glob(folder_out + "*GTV.nii.gz")
+gtv_nii_dir = ''.join(gtv_nii_dir)
+
+
 ct  = sitk.ReadImage(ct_nii_dir)
-pet  = sitk.ReadImage(pet_nii_dir)
-
-pet = resize_image_itk(pet, ct, sitk.sitkLinear)
-
-
-ct = sitk.GetArrayFromImage(ct)
-pet = sitk.GetArrayFromImage(pet)
-ct_slice = ct[ct.shape[0]//2, :, :]
-pet_slice = pet[pet.shape[0]//2, :, :]
-
-pet_high_suv = pet_slice > (np.mean(pet_slice) * 5)
-ct_with_high_suv = np.array(ct_slice)
-ct_with_high_suv[pet_high_suv > 0] = np.max(ct_with_high_suv)
-
-pet_ct_red_green = gray2rgb(ct_slice)
+pet = sitk.ReadImage(pet_nii_dir)
+mask = sitk.ReadImage(gtv_nii_dir)
 
 
-ct_norm = ct_slice - np.min(ct_slice)
-ct_norm = ct_norm / np.max(ct_norm)
-pet_norm = pet_slice - np.min(pet_slice)
-pet_norm = pet_norm / np.max(pet_norm)
-pet_ct_red_green = gray2rgb(ct_norm)
-pet_ct_red_green[:, :, 0] = ct_norm
-pet_ct_red_green[:, :, 1] = pet_norm
-pet_ct_red_green[:, :, 2] = ct_norm
+f, ax = plt.subplots(2, 2, figsize=(10, 10))
+ax[0][0].imshow(ct.max(0),  cmap = 'gray')
+ax[0][0].imshow(pet.max(0),  cmap = 'Reds', alpha=0.3)
+ax[0][1].imshow(ct.max(0), cmap = 'gray')
+ax[0][1].imshow(mask.max(0), cmap = 'Reds', alpha=0.3)
 
-pet_ct_red_green[:, :, 0] = ct_norm
-pet_ct_red_green[:, :, 1] = pet_norm
-pet_ct_red_green[:, :, 2] = pet_norm > (np.mean(pet_norm) / 3)
-imsave('7229_rgb_denis.png', pet_ct_red_green)
-
+ax[1][0].imshow(pet.max(0),  cmap = 'gray')
+ax[1][1].imshow(pet.max(0), cmap = 'gray')
+ax[1][1].imshow(mask.max(0), cmap = 'Reds', alpha=0.3)
+f.savefig("matplotlib_7229.png")
 
 exit()
 
@@ -156,6 +145,9 @@ relapse = get_struct_image(ct_dir, 'Relapse deformed')
 relapse = sitk.GetImageFromArray(relapse)
 relapse.CopyInformation(ct)
 sitk.WriteImage(relapse, folder_out + 'Relapse.nii.gz')
+
+
+
 
 
 print(f'SIZE:')
