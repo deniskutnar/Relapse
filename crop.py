@@ -7,6 +7,8 @@ from pydicom import dcmread
 import matplotlib.pyplot as plt
 import skimage
 from skimage.io import imsave
+from skimage.transform import resize
+
 
 
 
@@ -71,11 +73,19 @@ print(ct.shape)
 print(pet.shape)
 print(mask.shape)
 
-#ct_slice = ct[ct.shape[0]//2, :, :]
+ct_slice = ct[ct.shape[0]//2, :, :]
 #imsave('ct_slice.png', ct_slice)
 
 pet_slice = pet[pet.shape[0]//2, :, :]
-imsave('pet_slice.png', pet_slice)
+#imsave('pet_slice.png', pet_slice)
+
+pet_slice_r = resize(pet_slice, ct_slice.shape)
+imsave('pet_slice_resized.png', pet_slice_r)
+
+pet_ct_stack = np.hstack((pet_slice_r, ct_slice))
+imsave('pet_ct_stack.png', pet_ct_stack)
+
+
 
 exit()
 
