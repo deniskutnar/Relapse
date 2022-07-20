@@ -102,9 +102,9 @@ folder_out = "/home/denis/samba_share/katrins_data/7229/Processed/"
 #ct = convert_dcm_2_nii_x(ct_dir, folder_out)
 
 ct_nii_dir  = glob(folder_out + "*CT*")
-ct_nii_dir = ''.join(ct_nii)
+ct_nii_dir = ''.join(ct_nii_dir)
 pet_nii_dir  = glob(folder_out + "*PET*")
-pet_nii_dir = ''.join(pet_nii)
+pet_nii_dir = ''.join(pet_nii_dir)
 
 ct  = sitk.ReadImage(ct_nii_dir)
 pet  = sitk.ReadImage(pet_nii_dir)
