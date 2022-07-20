@@ -70,7 +70,21 @@ def get_scan_image(dicom_series_path):
         image[i] = im.pixel_array ## pixel - SUV value , as array 
     return image
 
+def get_struct_image(dicom_series_path, struct_name):
+    dicom_files = [d for d in os.listdir(dicom_series_path) if d.endswith('.dcm')]
 
+    # We assume here that you identified a single struct for each fraction
+    # and given it the same name in all fractions in order for it to be exported.
+    # This may require a pre-processing or manual checking to ensure that
+    # your structs of interest all have the same names.
+    mask = struct_to_mask(dicom_series_path, dicom_files, struct_name)
+    mask = np.flip(mask, axis=0)
+    if not np.any(mask):
+        raise Exception(f'Struct with name {struct_name} was not found in {dicom_series_path}'
+                        ' or did not contain any delineation data.'
+                        ' Are you sure that all structs of interest are named '
+                        'consistently and non-empty?')
+    return mask
 
 
 
@@ -80,9 +94,15 @@ ct = load_image_series(ct_dir)
 pet = load_image_series(pet_dir)
 
 ct_image = get_scan_image(ct_dir)
-print(ct_image)
-
 ct_itk = sitk.GetImageFromArray(ct_image)
+
+mask_image = get_struct_image(ct_dir, 'GTV')
+
+print(mask_image)
+
+
+
+exit()
 
 print(f'SIZE:')
 print(f'CT: \t{ct_itk.GetSize()}')
