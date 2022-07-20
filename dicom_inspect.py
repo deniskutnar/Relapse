@@ -9,8 +9,12 @@ import SimpleITK as sitk
 import dicom2nifti
 
 from nipype.interfaces.dcm2nii import Dcm2niix
-
 from glob import glob
+
+import skimage
+from skimage.io import imsave
+from skimage.transform import resize
+from skimage.color import gray2rgb
 
 
 # Step 1: Iterate through the slices in the PET image and print the slice location and max suv value.
