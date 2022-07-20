@@ -72,9 +72,10 @@ if os.path.isfile(fpath):
     #print('transfer syntax = ', fdataset.file_meta.TransferSyntaxUID)
     if not hasattr(fdataset.file_meta, 'TransferSyntaxUID'):
         fdataset.file_meta.TransferSyntaxUID = '1.2.840.10008.1.2' 
-            if fdataset.SOPClassUID in [mr_sop_class_uid, ct_sop_class_uid,
-                                        pet, enhanced_pet, legacy_pet]:
-                image_series.append(fdataset)
+
+    if fdataset.SOPClassUID in [mr_sop_class_uid, ct_sop_class_uid, pet, enhanced_pet, legacy_pet]:
+        image_series.append(fdataset)
+        
 image_series = sorted(image_series, key=lambda s: s.SliceLocation) # slice location 
 
 print(image_series)
