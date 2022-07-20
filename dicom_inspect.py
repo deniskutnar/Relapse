@@ -112,6 +112,35 @@ ct  = sitk.ReadImage(ct_nii_dir)
 pet  = sitk.ReadImage(pet_nii_dir)
 
 
+
+
+ct_slice = ct[ct.shape[0]//2, :, :]
+pet_slice = pet[pet.shape[0]//2, :, :]
+
+pet_high_suv = pet_slice > (np.mean(pet_slice) * 5)
+ct_with_high_suv = np.array(ct_slice)
+ct_with_high_suv[pet_high_suv > 0] = np.max(ct_with_high_suv)
+
+pet_ct_red_green = gray2rgb(ct_slice)
+
+
+ct_norm = ct_slice - np.min(ct_slice)
+ct_norm = ct_norm / np.max(ct_norm)
+pet_norm = pet_slice - np.min(pet_slice)
+pet_norm = pet_norm / np.max(pet_norm)
+pet_ct_red_green = gray2rgb(ct_norm)
+pet_ct_red_green[:, :, 0] = ct_norm
+pet_ct_red_green[:, :, 1] = pet_norm
+pet_ct_red_green[:, :, 2] = ct_norm
+
+pet_ct_red_green[:, :, 0] = ct_norm
+pet_ct_red_green[:, :, 1] = pet_norm
+pet_ct_red_green[:, :, 2] = pet_norm > (np.mean(pet_norm) / 3)
+imsave('7229_rgb_denis.png', pet_ct_red_green)
+
+
+exit()
+
 gtv = get_struct_image(ct_dir, 'GTV Radiolog')
 gtv = sitk.GetImageFromArray(gtv)
 gtv.CopyInformation(ct)
