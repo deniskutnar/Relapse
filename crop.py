@@ -71,8 +71,11 @@ print(ct.shape)
 print(pet.shape)
 print(mask.shape)
 
-ct_slice = ct[ct.shape[0]//2, :, :]
-imsave('ct_slice.png', ct_slice)
+#ct_slice = ct[ct.shape[0]//2, :, :]
+#imsave('ct_slice.png', ct_slice)
+
+pet_slice = pet[pet.shape[0]//2, :, :]
+imsave('pet_slice.png', pet_slice)
 
 exit()
 
