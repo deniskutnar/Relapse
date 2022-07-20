@@ -98,7 +98,7 @@ def get_struct_image(dicom_series_path, struct_name):
 ct_dir = "/home/denis/samba_share/katrins_data/7229/CT"
 pet_dir = "/home/denis/samba_share/katrins_data/7229/PET"
 
-from nipype.interfaces.dcm2nii import Dcm2niix
+
 def convert_dcm_2_nii_x(dcm_folder, output_folder):    
     converter = Dcm2niix()    
     converter.inputs.source_dir = dcm_folder    
@@ -107,6 +107,14 @@ def convert_dcm_2_nii_x(dcm_folder, output_folder):
     converter.run()
 
 #pet = convert_dcm_2_nii_x(pet_dir, 'PET/')
+
+ct = convert_dcm_2_nii_x(ct_dir, 'CT/')
+
+
+
+
+
+exit()
 
 pet  = sitk.ReadImage('PET/PET_PET_3mm_AC_20090721101551_6.nii.gz')
 print(f'SIZE:')
