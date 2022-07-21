@@ -114,6 +114,8 @@ ct_nii_dir = ''.join(ct_nii_dir)
 pet_nii_dir  = glob(folder_out + "*PET*nii.gz")
 pet_nii_dir = ''.join(pet_nii_dir)
 
+ct  = sitk.ReadImage(ct_nii_dir)
+
 gtv = get_struct_image(ct_dir, 'GTV Radiolog')
 gtv = sitk.GetImageFromArray(gtv)
 gtv.CopyInformation(ct)
@@ -127,7 +129,6 @@ sitk.WriteImage(relapse, folder_out + 'Relapse.nii.gz')
 gtv_nii_dir  = glob(folder_out + "*GTV.nii.gz")
 gtv_nii_dir = ''.join(gtv_nii_dir)
 
-ct  = sitk.ReadImage(ct_nii_dir)
 pet = sitk.ReadImage(pet_nii_dir)
 mask = sitk.ReadImage(gtv_nii_dir)
 
