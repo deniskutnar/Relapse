@@ -203,9 +203,8 @@ sitk.WriteImage(ct_crop, ct_nii_dir)
 sitk.WriteImage(gtv_crop, folder_out + 'GTV.nii.gz')
 sitk.WriteImage(relapse_crop, folder_out + 'Relapse.nii.gz')
 """
-
 # If odd
-pet_crop = sitk.ReadImage(pet_nii_dir)[:,:,319:]
+pet_crop = sitk.ReadImage(pet_nii_dir)[:,:,356:]
 sitk.WriteImage(pet_crop, pet_nii_dir)
 
 
@@ -231,18 +230,6 @@ print('-' * 50)
 """
 
 exit()
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 pet = sitk.ReadImage(pet_nii_dir)
