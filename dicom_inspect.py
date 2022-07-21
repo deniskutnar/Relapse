@@ -164,7 +164,7 @@ relapse.CopyInformation(ct)
 relapse1 = get_struct_image(ct_dir, 'Relapse deformed_cau')        # <----- Change me 
 relapse1 = sitk.GetArrayFromImage(relapse1)
 relapse2 = get_struct_image(ct_dir, 'Relapse deformed_cran')        # <----- Change me 
-relapse2 = sitk.GetArrayFromImage(relapse1)
+relapse2 = sitk.GetArrayFromImage(relapse2)
 rel_fuse = relapse1 + relapse2
 
 out_im = sitk.GetImageFromArray(rel_fuse)
