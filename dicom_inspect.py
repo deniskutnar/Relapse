@@ -133,8 +133,11 @@ if not isExist:
 dicom2nifti.convert_directory(ct_dir, folder_out)
 ct_js_mv  = glob(folder_out + "*.nii.gz")
 ct_js_mv = ''.join(ct_js_mv)
-os.rename(ct_js_mv, "CT_CT.nii.gz")
+os.rename(ct_js_mv, folder_out + "CT_CT.nii.gz")
 #ct = convert_dcm_2_nii_x(ct_dir, folder_out)
+
+
+exit()
 
 ## PET
 pet = convert_dcm_2_nii_x(pet_dir, folder_out)
