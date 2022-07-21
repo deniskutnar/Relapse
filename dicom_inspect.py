@@ -115,7 +115,7 @@ def read_image(path):
     return img_as_numpy
 
 
-patient_no = 11576   # <----- Change me 
+patient_no = 11663   # <----- Change me 
 
 ct_dir = "/home/denis/samba_share/katrins_data/" + str(patient_no) + "/CT"
 pet_dir = "/home/denis/samba_share/katrins_data/"+ str(patient_no) +"/PET"
@@ -173,17 +173,17 @@ gtv.CopyInformation(ct)
 sitk.WriteImage(gtv, folder_out + 'GTV.nii.gz')
 
 ### Get the Relapses
-
+"""
 relapse = get_struct_image(ct_dir, 'Relapse deformed')  # <----- Change me 
 relapse.CopyInformation(ct)
 """
-relapse1 = get_struct_image(ct_dir, 'Relapse Volume_N')        # <----- Change me 
+relapse1 = get_struct_image(ct_dir, 'Relapse volume_i')        # <----- Change me 
 relapse1 = sitk.GetArrayFromImage(relapse1)
-relapse2 = get_struct_image(ct_dir, 'Relapse Volume_T')        # <----- Change me 
+relapse2 = get_struct_image(ct_dir, 'Relapse volume_m')        # <----- Change me 
 relapse2 = sitk.GetArrayFromImage(relapse2)
-#relapse3 = get_struct_image(ct_dir, 'Relapse_deformed_T')        # <----- Change me 
-#relapse3 = sitk.GetArrayFromImage(relapse3)
-rel_fuse = relapse1 + relapse2
+relapse3 = get_struct_image(ct_dir, 'Relapse volume_s')        # <----- Change me 
+relapse3 = sitk.GetArrayFromImage(relapse3)
+rel_fuse = relapse1 + relapse2 + relapse3
 
 out_im = sitk.GetImageFromArray(rel_fuse)
 Im = out_im
@@ -194,7 +194,7 @@ BinThreshImFilt.SetOutsideValue(0)
 BinThreshImFilt.SetInsideValue(1)
 relapse = BinThreshImFilt.Execute(Im)
 relapse.CopyInformation(ct)
-"""
+
 sitk.WriteImage(relapse, folder_out + 'Relapse.nii.gz')
 
 
