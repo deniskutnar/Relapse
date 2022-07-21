@@ -240,7 +240,7 @@ print(f'SIZE:')
 print(f'CT: \t{ct_crop.GetSize()} \nPET: \t{pet.GetSize()} \nGTV: \t{gtv_crop.GetSize()} \nRelapse: \t{relapse_crop.GetSize()}')
 print('-' * 50)
 print(f'SPACING:')
-print(f'CT: \t{ct_crop.GetSpacing()} \nPET: \t{pet_crop.GetSpacing()} \nGTV: \t{gtv.GetSpacing()} \nRelapse: \t{Relapse.GetSpacing()') 
+print(f'CT: \t{ct_crop.GetSpacing()} \nPET: \t{pet_crop.GetSpacing()} \nGTV: \t{gtv.GetSpacing()} \nRelapse: \t{Relapse.GetSpacing()}') 
 print('-' * 50)
 
 
