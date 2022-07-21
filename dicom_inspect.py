@@ -109,42 +109,64 @@ def resize_image_itk(ori_img, target_img, resamplemethod=sitk.sitkNearestNeighbo
     itk_img_resampled = resampler.Execute(ori_img)  # Get the resampled image
     return itk_img_resampled
 
+def read_image(path):
+    img = sitk.ReadImage(path)
+    img_as_numpy = sitk.GetArrayFromImage(img).astype('float32')
+    return img_as_numpy
 
 ct_dir = "/home/denis/samba_share/katrins_data/7229/CT"
 pet_dir = "/home/denis/samba_share/katrins_data/7229/PET"
 folder_out = "/home/denis/samba_share/katrins_data/7229/Processed/"
 
-#pet = convert_dcm_2_nii_x(pet_dir, folder_out)
-#ct = convert_dcm_2_nii_x(ct_dir, folder_out)
+### Concert PET and CT 
+pet = convert_dcm_2_nii_x(pet_dir, folder_out)
+ct = convert_dcm_2_nii_x(ct_dir, folder_out)
+### Remove Jason files 
+ct_js  = glob(folder_out + "*CT*.json")
+pet_js = glob(folder_out + "*PET*.json")
+for f in range(len(ct_js)):
+    os.remove(f)
 
+exit()
+
+### Path to CT and PET files
 ct_nii_dir  = glob(folder_out + "*CT*.nii.gz")
 ct_nii_dir = ''.join(ct_nii_dir)
-
-
 pet_nii_dir  = glob(folder_out + "*PET*nii.gz")
 pet_nii_dir = ''.join(pet_nii_dir)
 
 ct  = sitk.ReadImage(ct_nii_dir)
 
+### Get the GTV
 gtv = get_struct_image(ct_dir, 'GTV Radiolog')
-#gtv = sitk.GetImageFromArray(gtv)
 gtv.CopyInformation(ct)
 sitk.WriteImage(gtv, folder_out + 'GTV.nii.gz')
 
+### Get the Relapse
 relapse = get_struct_image(ct_dir, 'Relapse deformed')
-#relapse = sitk.GetImageFromArray(relapse)
 relapse.CopyInformation(ct)
 sitk.WriteImage(relapse, folder_out + 'Relapse.nii.gz')
 
+### Get path to GTV and Relapse files 
 gtv_nii_dir  = glob(folder_out + "*GTV.nii.gz")
 gtv_nii_dir = ''.join(gtv_nii_dir)
+relapse_nii_dir  = glob(folder_out + "*Relapse.nii.gz")
+relapse_nii_dir = ''.join(relapse_nii_dir)
 
+### 4 Remove slices if needed 
+ct  = read_image(ct_nii_dir)
+pet = read_image(pet_nii_dir)
+gtv = read_image(gtv_nii_dir)
+relapse = read_image(relapse_nii_dir)
+
+
+
+
+
+exit()
 pet = sitk.ReadImage(pet_nii_dir)
-
 pet = resize_image_itk(pet, ct, sitk.sitkLinear)
-
 mask = sitk.ReadImage(gtv_nii_dir)
-
 ct = sitk.GetArrayFromImage(ct)
 pet = sitk.GetArrayFromImage(pet)
 mask = sitk.GetArrayFromImage(mask)
@@ -154,7 +176,6 @@ ax[0][0].imshow(ct.max(0),  cmap = 'gray')
 ax[0][0].imshow(pet.max(0),  cmap = 'Reds', alpha=0.3)
 ax[0][1].imshow(ct.max(0), cmap = 'gray')
 ax[0][1].imshow(mask.max(0), cmap = 'Reds', alpha=0.3)
-
 ax[1][0].imshow(pet.max(0),  cmap = 'gray')
 ax[1][1].imshow(pet.max(0), cmap = 'gray')
 ax[1][1].imshow(mask.max(0), cmap = 'Reds', alpha=0.3)
