@@ -126,7 +126,6 @@ if not isExist:
     os.makedirs(folder_out)
     print("The new directory is created!")
 
-exit()
 
 ### Concert PET and CT 
 pet = convert_dcm_2_nii_x(pet_dir, folder_out)
@@ -145,7 +144,6 @@ ct_nii_dir  = glob(folder_out + "*CT*.nii.gz")
 ct_nii_dir = ''.join(ct_nii_dir)
 pet_nii_dir  = glob(folder_out + "*PET*.nii.gz")
 pet_nii_dir = ''.join(pet_nii_dir)
-
 ct  = sitk.ReadImage(ct_nii_dir)
 
 ### Get the GTV
