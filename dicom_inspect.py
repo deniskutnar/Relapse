@@ -124,8 +124,8 @@ folder_out = "/home/denis/samba_share/katrins_data/7229/Processed/"
 ### Remove Jason files 
 ct_js  = glob(folder_out + "*CT*.json")
 ct_js = ''.join(ct_js)
-print(ct_js)
-#os.remove(ct_js)
+#print(ct_js)
+os.remove(ct_js)
 
 pet_js = glob(folder_out + "*PET*.json")
 
