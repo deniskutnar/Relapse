@@ -127,8 +127,8 @@ if not isExist:
     os.makedirs(folder_out)
     print("The new directory is created!")
 
-
-### Concert PET and CT 
+"""
+### Convert PET and CT 
 ## CT
 dicom2nifti.convert_directory(ct_dir, folder_out)
 ct_js_mv  = glob(folder_out + "*.nii.gz")
@@ -151,7 +151,7 @@ os.remove(pet_js_rm)
 
 #exit()
 
-
+"""
 #ct_js  = glob(folder_out + "*CT*.json")
 #ct_js_rm = ''.join(ct_js)
 #os.remove(ct_js_rm)
