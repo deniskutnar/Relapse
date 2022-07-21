@@ -123,6 +123,7 @@ folder_out = "/home/denis/samba_share/katrins_data/7229/Processed/"
 #ct = convert_dcm_2_nii_x(ct_dir, folder_out)
 ### Remove Jason files 
 ct_js  = glob(folder_out + "*CT_CT*.json")
+ct_js = ct_js[0]
 ct_js_rm = ''.join(ct_js)
 print(ct_js_rm)
 #os.remove(ct_js_rm)
