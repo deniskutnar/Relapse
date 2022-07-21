@@ -137,8 +137,6 @@ os.rename(ct_js_mv, folder_out + "CT_CT.nii.gz")
 #ct = convert_dcm_2_nii_x(ct_dir, folder_out)
 
 
-exit()
-
 ## PET
 pet = convert_dcm_2_nii_x(pet_dir, folder_out)
 ### Remove Jason files 
