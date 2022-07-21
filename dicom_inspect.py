@@ -114,25 +114,31 @@ def read_image(path):
     img_as_numpy = sitk.GetArrayFromImage(img).astype('float32')
     return img_as_numpy
 
-ct_dir = "/home/denis/samba_share/katrins_data/7229/CT"
-pet_dir = "/home/denis/samba_share/katrins_data/7229/PET"
-folder_out = "/home/denis/samba_share/katrins_data/7229/Processed/"
 
-### Concert PET and CT 
-#pet = convert_dcm_2_nii_x(pet_dir, folder_out)
-#ct = convert_dcm_2_nii_x(ct_dir, folder_out)
-### Remove Jason files 
-ct_js  = glob(folder_out + "*CT_CT*.json")
-ct_js = ct_js[0]
-ct_js_rm = ''.join(ct_js)
-#print(ct_js_rm)
-os.remove(ct_js_rm)
+patient_no = 7229
+ct_dir = "/home/denis/samba_share/katrins_data/" + str(patient_no) + "/CT"
+pet_dir = "/home/denis/samba_share/katrins_data/"+ str(patient_no) +"/PET"
 
-pet_js = glob(folder_out + "*PET*.json")
-
-
+#Create output folder 
+folder_out = "/home/denis/samba_share/katrins_data/" + str(patient_no) + "/Processed/"
+isExist = os.path.exists(folder_out)
+if not isExist:
+    os.makedirs(folder_out)
+    print("The new directory is created!")
 
 exit()
+
+### Concert PET and CT 
+pet = convert_dcm_2_nii_x(pet_dir, folder_out)
+ct = convert_dcm_2_nii_x(ct_dir, folder_out)
+### Remove Jason files 
+ct_js  = glob(folder_out + "*CT*.json")
+ct_js_rm = ''.join(ct_js)
+os.remove(ct_js_rm)
+pet_js = glob(folder_out + "*PET*.json")
+pet_js_rm = ''.join(pet_js)
+os.remove(pet_js_rm)
+
 
 ### Path to CT and PET files
 ct_nii_dir  = glob(folder_out + "*CT*.nii.gz")
@@ -164,7 +170,8 @@ pet = read_image(pet_nii_dir)
 gtv = read_image(gtv_nii_dir)
 relapse = read_image(relapse_nii_dir)
 
-
+print(ct.shape)
+print(pet.shape)
 
 
 
