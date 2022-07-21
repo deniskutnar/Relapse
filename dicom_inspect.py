@@ -115,7 +115,7 @@ def read_image(path):
     return img_as_numpy
 
 
-patient_no = 11240    # <----- Change me 
+patient_no = 11386    # <----- Change me 
 
 ct_dir = "/home/denis/samba_share/katrins_data/" + str(patient_no) + "/CT"
 pet_dir = "/home/denis/samba_share/katrins_data/"+ str(patient_no) +"/PET"
@@ -130,27 +130,26 @@ if not isExist:
 
 ### Convert PET and CT 
 ## CT
-"""
+
 dicom2nifti.convert_directory(ct_dir, folder_out)
 ct_js_mv  = glob(folder_out + "*.nii.gz")
 ct_js_mv = ''.join(ct_js_mv)
 os.rename(ct_js_mv, folder_out + "CT_CT.nii.gz")
 #ct = convert_dcm_2_nii_x(ct_dir, folder_out)
-"""
+
 
 ## PET
 pet = convert_dcm_2_nii_x(pet_dir, folder_out)
-#pet_js_mv  = glob(folder_out + "*PET*.nii.gz")
-#pet_js_mv = ''.join(pet_js_mv)
-#os.rename(pet_js_mv, folder_out + "PET_PET.nii.gz")
+pet_js_mv  = glob(folder_out + "*PET*.nii.gz")
+pet_js_mv = ''.join(pet_js_mv)
+os.rename(pet_js_mv, folder_out + "PET_PET.nii.gz")
 
 ### Remove Jason files 
-#pet_js = glob(folder_out + "*PET*.json")
-#pet_js_rm = ''.join(pet_js)
-#os.remove(pet_js_rm)
+pet_js = glob(folder_out + "*PET*.json")
+pet_js_rm = ''.join(pet_js)
+os.remove(pet_js_rm)
 
 
-exit()
 
 
 #ct_js  = glob(folder_out + "*CT*.json")
@@ -174,13 +173,13 @@ gtv.CopyInformation(ct)
 sitk.WriteImage(gtv, folder_out + 'GTV.nii.gz')
 
 ### Get the Relapses
-
+"""
 relapse = get_struct_image(ct_dir, 'Relapse deformed')  # <----- Change me 
 relapse.CopyInformation(ct)
 """
-relapse1 = get_struct_image(ct_dir, 'Relapse deformed_N')        # <----- Change me 
+relapse1 = get_struct_image(ct_dir, 'Relapse Volume_N')        # <----- Change me 
 relapse1 = sitk.GetArrayFromImage(relapse1)
-relapse2 = get_struct_image(ct_dir, 'Relapse deformed_T')        # <----- Change me 
+relapse2 = get_struct_image(ct_dir, 'Relapse Volume_T')        # <----- Change me 
 relapse2 = sitk.GetArrayFromImage(relapse2)
 #relapse3 = get_struct_image(ct_dir, 'Relapse_deformed_T')        # <----- Change me 
 #relapse3 = sitk.GetArrayFromImage(relapse3)
@@ -195,7 +194,7 @@ BinThreshImFilt.SetOutsideValue(0)
 BinThreshImFilt.SetInsideValue(1)
 relapse = BinThreshImFilt.Execute(Im)
 relapse.CopyInformation(ct)
-"""
+
 sitk.WriteImage(relapse, folder_out + 'Relapse.nii.gz')
 
 
