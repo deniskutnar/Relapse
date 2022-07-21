@@ -208,14 +208,14 @@ relapse_nii_dir = ''.join(relapse_nii_dir)
 
 ### 4 Remove slices if needed 
 # If one extra slices
-
+"""
 ct_crop = sitk.ReadImage(ct_nii_dir)[:, :, 2:]
 gtv_crop = sitk.ReadImage(gtv_nii_dir)[:,:,2:]
 relapse_crop = sitk.ReadImage(relapse_nii_dir)[:,:,2:]
 sitk.WriteImage(ct_crop, ct_nii_dir)
 sitk.WriteImage(gtv_crop, folder_out + 'GTV.nii.gz')
 sitk.WriteImage(relapse_crop, folder_out + 'Relapse.nii.gz')
-"""
+
 # If odd
 pet_crop = sitk.ReadImage(pet_nii_dir)[:,:,319:-37]
 sitk.WriteImage(pet_crop, pet_nii_dir)
