@@ -143,7 +143,7 @@ if not isExist:
 
 
 ### Path to CT and PET files
-ct_nii_dir  = glob(folder_out + "*CT*.nii.gz")
+ct_nii_dir  = glob(folder_out + "*CT_CT*.nii.gz") #---- > change
 ct_nii_dir = ''.join(ct_nii_dir)
 pet_nii_dir  = glob(folder_out + "*PET*.nii.gz")
 pet_nii_dir = ''.join(pet_nii_dir)
