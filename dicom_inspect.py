@@ -60,7 +60,7 @@ def get_struct_image(dicom_series_path, struct_name):
     # This may require a pre-processing or manual checking to ensure that
     # your structs of interest all have the same names.
     mask = struct_to_mask(dicom_series_path, dicom_files, struct_name)
-    #mask = np.flip(mask, axis=0)
+    mask = np.flip(mask, axis=1)
     if not np.any(mask):
         raise Exception(f'Struct with name {struct_name} was not found in {dicom_series_path}'
                         ' or did not contain any delineation data.'
