@@ -129,10 +129,15 @@ if not isExist:
 
 
 ### Concert PET and CT 
-pet = convert_dcm_2_nii_x(pet_dir, folder_out)
-#dicom2nifti.convert_directory(ct_dir, folder_out)
-ct = convert_dcm_2_nii_x(ct_dir, folder_out)
+## CT
+dicom2nifti.convert_directory(ct_dir, folder_out)
+ct_js_mv  = glob(folder_out + "*.nii.gz")
+ct_js_mv = ''.join(ct_js_mv)
+os.rename(ct_js_mv, "CT_CT.nii.gz")
+#ct = convert_dcm_2_nii_x(ct_dir, folder_out)
 
+## PET
+pet = convert_dcm_2_nii_x(pet_dir, folder_out)
 ### Remove Jason files 
 pet_js = glob(folder_out + "*PET*.json")
 pet_js_rm = ''.join(pet_js)
