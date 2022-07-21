@@ -127,7 +127,7 @@ if not isExist:
     os.makedirs(folder_out)
     print("The new directory is created!")
 
-"""
+
 ### Convert PET and CT 
 ## CT
 dicom2nifti.convert_directory(ct_dir, folder_out)
@@ -151,7 +151,7 @@ os.remove(pet_js_rm)
 
 #exit()
 
-"""
+
 #ct_js  = glob(folder_out + "*CT*.json")
 #ct_js_rm = ''.join(ct_js)
 #os.remove(ct_js_rm)
@@ -209,9 +209,9 @@ relapse_nii_dir = ''.join(relapse_nii_dir)
 ### 4 Remove slices if needed 
 # If one extra slices
 
-ct_crop = sitk.ReadImage(ct_nii_dir)[:, :, 1:]
-gtv_crop = sitk.ReadImage(gtv_nii_dir)[:,:,1:]
-relapse_crop = sitk.ReadImage(relapse_nii_dir)[:,:,1:]
+ct_crop = sitk.ReadImage(ct_nii_dir)[:, :, 2:]
+gtv_crop = sitk.ReadImage(gtv_nii_dir)[:,:,2:]
+relapse_crop = sitk.ReadImage(relapse_nii_dir)[:,:,2:]
 sitk.WriteImage(ct_crop, ct_nii_dir)
 sitk.WriteImage(gtv_crop, folder_out + 'GTV.nii.gz')
 sitk.WriteImage(relapse_crop, folder_out + 'Relapse.nii.gz')
@@ -234,14 +234,15 @@ print('-' * 40)
 print(" After")
 print(pet_crop.GetSize())
 print(pet_crop.GetSpacing())
+"""
 
 print(f'SIZE:')
 print(f'CT: \t{ct_crop.GetSize()} \nPET: \t{pet.GetSize()} \nGTV: \t{gtv_crop.GetSize()} \nRelapse: \t{relapse_crop.GetSize()}')
 print('-' * 50)
 print(f'SPACING:')
-print(f'CT: \t{img_ct.GetSpacing()} \nPET: \t{img_pt.GetSpacing()} \nMask: \t{mask.GetSpacing()}') 
+print(f'CT: \t{ct_crop.GetSpacing()} \nPET: \t{pet_crop.GetSpacing()} \nGTV: \t{gtv.GetSpacing()} \nRelapse: \t{Relapse.GetSpacing()') 
 print('-' * 50)
-"""
+
 
 exit()
 
