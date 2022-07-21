@@ -115,7 +115,7 @@ def read_image(path):
     return img_as_numpy
 
 
-patient_no = 10033    # <----- Change me 
+patient_no = 10157    # <----- Change me 
 
 ct_dir = "/home/denis/samba_share/katrins_data/" + str(patient_no) + "/CT"
 pet_dir = "/home/denis/samba_share/katrins_data/"+ str(patient_no) +"/PET"
@@ -174,7 +174,7 @@ sitk.WriteImage(gtv, folder_out + 'GTV.nii.gz')
 
 ### Get the Relapses
 
-relapse = get_struct_image(ct_dir, 'Relapse_deformed')  # <----- Change me 
+relapse = get_struct_image(ct_dir, 'Relapse Volume')  # <----- Change me 
 relapse.CopyInformation(ct)
 """
 relapse1 = get_struct_image(ct_dir, 'Relapse_deformed_N1')        # <----- Change me 
@@ -246,6 +246,25 @@ print('-' * 50)
 exit()
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 pet = sitk.ReadImage(pet_nii_dir)
 pet = resize_image_itk(pet, ct, sitk.sitkLinear)
 mask = sitk.ReadImage(gtv_nii_dir)
@@ -262,14 +281,6 @@ ax[1][0].imshow(pet.max(0),  cmap = 'gray')
 ax[1][1].imshow(pet.max(0), cmap = 'gray')
 ax[1][1].imshow(mask.max(0), cmap = 'Reds', alpha=0.3)
 f.savefig("XXX_res.png")
-
-exit()
-
-
-
-
-
-
 
 print(f'SIZE:')
 print(f'CT: \t{ct.GetSize()} \nPET: \t{pet.GetSize()} \nGTV: \t{gtv.GetSize()} \nRelapse: \t{relapse.GetSize()}')
@@ -308,142 +319,6 @@ print(f'CT: \t{ct.GetDirection()} \nPET: \t{pet_res.GetDirection()} \nGTV: \t{gt
 
 
 
-
-
-
-exit()
-
-
-print(f'SIZE:')
-print(f'CT: \t{ct.GetSize()}')
-print('-' * 40)
-print(f'SPACING:')
-print(f'CT: \t{ct.GetSpacing()}') 
-print('-' * 40)
-print(f'ORIGIN:')
-print(f'CT: \t{ct.GetOrigin()}') 
-print('-' * 40)
-print(f'DIRECTION:')
-print(f'CT: \t{ct.GetDirection()}') 
-
-print("")
-
-print(f'SIZE:')
-print(f'CT: \t{pet.GetSize()}')
-print('-' * 40)
-print(f'SPACING:')
-print(f'CT: \t{pet.GetSpacing()}') 
-print('-' * 40)
-print(f'ORIGIN:')
-print(f'CT: \t{pet.GetOrigin()}') 
-print('-' * 40)
-print(f'DIRECTION:')
-print(f'CT: \t{pet.GetDirection()}') 
-
-
-
-
-
-exit()
-
-pet  = sitk.ReadImage('PET/PET_PET_3mm_AC_20090721101551_6.nii.gz')
-print(f'SIZE:')
-print(f'CT: \t{pet.GetSize()}')
-print('-' * 40)
-print(f'SPACING:')
-print(f'CT: \t{pet.GetSpacing()}') 
-print('-' * 40)
-print(f'ORIGIN:')
-print(f'CT: \t{pet.GetOrigin()}') 
-print('-' * 40)
-print(f'DIRECTION:')
-print(f'CT: \t{pet.GetDirection()}') 
-
-
-
-exit()
-
-#dicom2nifti.convert_directory(ct_dir, 'CT/')
-dicom2nifti.convert_directory(pet_dir, 'PET/pet.nii.gz')
-
-
-exit ()
-
-ct  = sitk.ReadImage('CT/5_ct__30mm_b40f.nii.gz')
-ct_numpy = sitk.GetArrayFromImage(ct)
-print(ct_numpy.shape)
-
-mask = get_struct_image(ct_dir, 'GTV Radiolog')
-mask = sitk.GetImageFromArray(mask)
-mask.CopyInformation(ct)
-
-
-print(f'SIZE:')
-print(f'CT: \t{ct.GetSize()}')
-print('-' * 40)
-print(f'SPACING:')
-print(f'CT: \t{ct.GetSpacing()}') 
-print('-' * 40)
-print(f'ORIGIN:')
-print(f'CT: \t{ct.GetOrigin()}') 
-print('-' * 40)
-print(f'DIRECTION:')
-print(f'CT: \t{ct.GetDirection()}') 
-
-print(f'SIZE:')
-print(f'CT: \t{mask.GetSize()}')
-print('-' * 40)
-print(f'SPACING:')
-print(f'CT: \t{mask.GetSpacing()}') 
-print('-' * 40)
-print(f'ORIGIN:')
-print(f'CT: \t{mask.GetOrigin()}') 
-print('-' * 40)
-print(f'DIRECTION:')
-print(f'CT: \t{mask.GetDirection()}') 
-
-
-
-exit()
-
-#ct = load_image_series(ct_dir)
-#pet = load_image_series(pet_dir)
-
-ct_image = get_scan_image(ct_dir)
-ct_itk = sitk.GetImageFromArray(ct_image)
-
-mask = get_struct_image(ct_dir, 'GTV Radiolog')
-mask = sitk.GetImageFromArray(mask)
-
-print(mask)
-
-print(f'SIZE:')
-print(f'CT: \t{mask.GetSize()}')
-print('-' * 40)
-print(f'SPACING:')
-print(f'CT: \t{mask.GetSpacing()}') 
-print('-' * 40)
-print(f'ORIGIN:')
-print(f'CT: \t{mask.GetOrigin()}') 
-print('-' * 40)
-print(f'DIRECTION:')
-print(f'CT: \t{mask.GetDirection()}') 
-
-
-
-exit()
-
-print(f'SIZE:')
-print(f'CT: \t{ct_itk.GetSize()}')
-print('-' * 40)
-print(f'SPACING:')
-print(f'CT: \t{ct_itk.GetSpacing()}') 
-print('-' * 40)
-print(f'ORIGIN:')
-print(f'CT: \t{ct_itk.GetOrigin()}') 
-print('-' * 40)
-print(f'DIRECTION:')
-print(f'CT: \t{ct_itk.GetDirection()}') 
 
 
 
