@@ -148,6 +148,7 @@ ct_nii_dir = ''.join(ct_nii_dir)
 pet_nii_dir  = glob(folder_out + "*PET*.nii.gz")
 pet_nii_dir = ''.join(pet_nii_dir)
 ct  = sitk.ReadImage(ct_nii_dir)
+pet  = sitk.ReadImage(pet_nii_dir)
 
 ### Get the GTV
 gtv = get_struct_image(ct_dir, 'GTV')                  # <----- Change me 
