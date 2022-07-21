@@ -139,17 +139,17 @@ os.rename(ct_js_mv, folder_out + "CT_CT.nii.gz")
 
 ## PET
 pet = convert_dcm_2_nii_x(pet_dir, folder_out)
-pet_js_mv  = glob(folder_out + "*PET*.nii.gz")
-pet_js_mv = ''.join(pet_js_mv)
-os.rename(pet_js_mv, folder_out + "PET_PET.nii.gz")
+#pet_js_mv  = glob(folder_out + "*PET*.nii.gz")
+#pet_js_mv = ''.join(pet_js_mv)
+#os.rename(pet_js_mv, folder_out + "PET_PET.nii.gz")
 
 ### Remove Jason files 
-pet_js = glob(folder_out + "*PET*.json")
-pet_js_rm = ''.join(pet_js)
-os.remove(pet_js_rm)
+#pet_js = glob(folder_out + "*PET*.json")
+#pet_js_rm = ''.join(pet_js)
+#os.remove(pet_js_rm)
 
 
-#exit()
+exit()
 
 
 #ct_js  = glob(folder_out + "*CT*.json")
