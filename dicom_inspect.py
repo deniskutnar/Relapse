@@ -139,7 +139,7 @@ pet_js_rm = ''.join(pet_js)
 os.remove(pet_js_rm)
 
 
-
+exit()
 
 #ct_js  = glob(folder_out + "*CT*.json")
 #ct_js_rm = ''.join(ct_js)
