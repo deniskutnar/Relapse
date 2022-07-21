@@ -129,17 +129,17 @@ if not isExist:
 
 
 ### Concert PET and CT 
-pet = convert_dcm_2_nii_x(pet_dir, folder_out)
-dicom2nifti.convert_directory(ct_dir, folder_out)
+#pet = convert_dcm_2_nii_x(pet_dir, folder_out)
+#dicom2nifti.convert_directory(ct_dir, folder_out)
 #ct = convert_dcm_2_nii_x(ct_dir, folder_out)
 
 ### Remove Jason files 
 #ct_js  = glob(folder_out + "*CT*.json")
 #ct_js_rm = ''.join(ct_js)
 #os.remove(ct_js_rm)
-pet_js = glob(folder_out + "*PET*.json")
-pet_js_rm = ''.join(pet_js)
-os.remove(pet_js_rm)
+#pet_js = glob(folder_out + "*PET*.json")
+#pet_js_rm = ''.join(pet_js)
+#os.remove(pet_js_rm)
 
 
 ### Path to CT and PET files
@@ -156,7 +156,7 @@ gtv.CopyInformation(ct)
 sitk.WriteImage(gtv, folder_out + 'GTV.nii.gz')
 
 ### Get the Relapses
-relapse = get_struct_image(ct_dir, 'Relapse volume')  # <----- Change me 
+relapse = get_struct_image(ct_dir, 'Relapse Volume')  # <----- Change me 
 relapse.CopyInformation(ct)
 #relapse = get_struct_image(ct_dir, 'Relapse 1')        # <----- Change me 
 #relapse.CopyInformation(ct)
