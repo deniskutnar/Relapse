@@ -174,7 +174,7 @@ sitk.WriteImage(gtv, folder_out + 'GTV.nii.gz')
 
 ### Get the Relapses
 
-relapse = get_struct_image(ct_dir, 'Relapse Deformed')  # <----- Change me 
+relapse = get_struct_image(ct_dir, 'Relapse deformed')  # <----- Change me 
 relapse.CopyInformation(ct)
 """
 relapse1 = get_struct_image(ct_dir, 'Relapse_deformed_N1')        # <----- Change me 
