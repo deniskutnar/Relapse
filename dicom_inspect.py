@@ -141,9 +141,9 @@ os.remove(pet_js_rm)
 
 
 
-ct_js  = glob(folder_out + "*CT*.json")
-ct_js_rm = ''.join(ct_js)
-os.remove(ct_js_rm)
+#ct_js  = glob(folder_out + "*CT*.json")
+#ct_js_rm = ''.join(ct_js)
+#os.remove(ct_js_rm)
 
 
 
