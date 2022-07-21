@@ -122,10 +122,10 @@ folder_out = "/home/denis/samba_share/katrins_data/7229/Processed/"
 #pet = convert_dcm_2_nii_x(pet_dir, folder_out)
 #ct = convert_dcm_2_nii_x(ct_dir, folder_out)
 ### Remove Jason files 
-ct_js  = glob(folder_out + "*CT*.json")
-ct_js = ''.join(ct_js)
+ct_js  = glob(folder_out + "*CT_CT*.json")
+ct_js_rm = ''.join(ct_js)
 #print(ct_js)
-os.remove(ct_js)
+os.remove(ct_js_rm)
 
 pet_js = glob(folder_out + "*PET*.json")
 
@@ -136,7 +136,7 @@ exit()
 ### Path to CT and PET files
 ct_nii_dir  = glob(folder_out + "*CT*.nii.gz")
 ct_nii_dir = ''.join(ct_nii_dir)
-pet_nii_dir  = glob(folder_out + "*PET*nii.gz")
+pet_nii_dir  = glob(folder_out + "*PET*.nii.gz")
 pet_nii_dir = ''.join(pet_nii_dir)
 
 ct  = sitk.ReadImage(ct_nii_dir)
