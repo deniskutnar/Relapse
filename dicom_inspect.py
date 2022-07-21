@@ -119,8 +119,8 @@ pet_dir = "/home/denis/samba_share/katrins_data/7229/PET"
 folder_out = "/home/denis/samba_share/katrins_data/7229/Processed/"
 
 ### Concert PET and CT 
-pet = convert_dcm_2_nii_x(pet_dir, folder_out)
-ct = convert_dcm_2_nii_x(ct_dir, folder_out)
+#pet = convert_dcm_2_nii_x(pet_dir, folder_out)
+#ct = convert_dcm_2_nii_x(ct_dir, folder_out)
 ### Remove Jason files 
 ct_js  = glob(folder_out + "*CT*.json")
 ct_js = ''.join(ct_js)
