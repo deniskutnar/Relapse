@@ -115,7 +115,7 @@ def read_image(path):
     return img_as_numpy
 
 
-patient_no = 11386    # <----- Change me 
+patient_no = 11576   # <----- Change me 
 
 ct_dir = "/home/denis/samba_share/katrins_data/" + str(patient_no) + "/CT"
 pet_dir = "/home/denis/samba_share/katrins_data/"+ str(patient_no) +"/PET"
@@ -173,7 +173,7 @@ gtv.CopyInformation(ct)
 sitk.WriteImage(gtv, folder_out + 'GTV.nii.gz')
 
 ### Get the Relapses
-"""
+
 relapse = get_struct_image(ct_dir, 'Relapse deformed')  # <----- Change me 
 relapse.CopyInformation(ct)
 """
@@ -194,7 +194,7 @@ BinThreshImFilt.SetOutsideValue(0)
 BinThreshImFilt.SetInsideValue(1)
 relapse = BinThreshImFilt.Execute(Im)
 relapse.CopyInformation(ct)
-
+"""
 sitk.WriteImage(relapse, folder_out + 'Relapse.nii.gz')
 
 
@@ -208,14 +208,14 @@ relapse_nii_dir = ''.join(relapse_nii_dir)
 
 ### 4 Remove slices if needed 
 # If one extra slices
-"""
-ct_crop = sitk.ReadImage(ct_nii_dir)[:, :, 2:]
-gtv_crop = sitk.ReadImage(gtv_nii_dir)[:,:,2:]
-relapse_crop = sitk.ReadImage(relapse_nii_dir)[:,:,2:]
+
+ct_crop = sitk.ReadImage(ct_nii_dir)[:, :, 1:]
+gtv_crop = sitk.ReadImage(gtv_nii_dir)[:,:,1:]
+relapse_crop = sitk.ReadImage(relapse_nii_dir)[:,:,1:]
 sitk.WriteImage(ct_crop, ct_nii_dir)
 sitk.WriteImage(gtv_crop, folder_out + 'GTV.nii.gz')
 sitk.WriteImage(relapse_crop, folder_out + 'Relapse.nii.gz')
-
+"""
 # If odd
 pet_crop = sitk.ReadImage(pet_nii_dir)[:,:,319:-37]
 sitk.WriteImage(pet_crop, pet_nii_dir)
@@ -240,7 +240,7 @@ print(f'SIZE:')
 print(f'CT: \t{ct_crop.GetSize()} \nPET: \t{pet.GetSize()} \nGTV: \t{gtv_crop.GetSize()} \nRelapse: \t{relapse_crop.GetSize()}')
 print('-' * 50)
 print(f'SPACING:')
-print(f'CT: \t{ct_crop.GetSpacing()} \nPET: \t{pet_crop.GetSpacing()} \nGTV: \t{gtv.GetSpacing()} \nRelapse: \t{Relapse.GetSpacing()}') 
+print(f'CT: \t{ct_crop.GetSpacing()} \nPET: \t{pet.GetSpacing()} \nGTV: \t{gtv.GetSpacing()} \nRelapse: \t{Relapse.GetSpacing()}') 
 print('-' * 50)
 
 
