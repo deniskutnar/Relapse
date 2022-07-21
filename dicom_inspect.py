@@ -140,6 +140,9 @@ gtv_nii_dir  = glob(folder_out + "*GTV.nii.gz")
 gtv_nii_dir = ''.join(gtv_nii_dir)
 
 pet = sitk.ReadImage(pet_nii_dir)
+
+pet = resize_image_itk(pet, ct, sitk.sitkLinear)
+
 mask = sitk.ReadImage(gtv_nii_dir)
 
 ct = sitk.GetArrayFromImage(ct)
@@ -155,7 +158,7 @@ ax[0][1].imshow(mask.max(0), cmap = 'Reds', alpha=0.3)
 ax[1][0].imshow(pet.max(0),  cmap = 'gray')
 ax[1][1].imshow(pet.max(0), cmap = 'gray')
 ax[1][1].imshow(mask.max(0), cmap = 'Reds', alpha=0.3)
-f.savefig("XXX2.png")
+f.savefig("XXX_res.png")
 
 exit()
 
