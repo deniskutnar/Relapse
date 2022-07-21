@@ -66,7 +66,17 @@ def get_struct_image(dicom_series_path, struct_name):
                         ' or did not contain any delineation data.'
                         ' Are you sure that all structs of interest are named '
                         'consistently and non-empty?')
-    return mask
+    mask_itk = sitk.GetImageFromArray(mask)
+
+    Im = mask_itk
+    BinThreshImFilt = sitk.BinaryThresholdImageFilter()
+    BinThreshImFilt.SetLowerThreshold(1)
+    BinThreshImFilt.SetUpperThreshold(5)
+    BinThreshImFilt.SetOutsideValue(0)
+    BinThreshImFilt.SetInsideValue(1)
+    BinMask = BinThreshImFilt.Execute(Im)
+
+    return BinMask
 
 def resize_image_itk(ori_img, target_img, resamplemethod=sitk.sitkNearestNeighbor):
     """
@@ -117,12 +127,12 @@ pet_nii_dir = ''.join(pet_nii_dir)
 ct  = sitk.ReadImage(ct_nii_dir)
 
 gtv = get_struct_image(ct_dir, 'GTV Radiolog')
-gtv = sitk.GetImageFromArray(gtv)
+#gtv = sitk.GetImageFromArray(gtv)
 gtv.CopyInformation(ct)
 sitk.WriteImage(gtv, folder_out + 'GTV.nii.gz')
 
 relapse = get_struct_image(ct_dir, 'Relapse deformed')
-relapse = sitk.GetImageFromArray(relapse)
+#relapse = sitk.GetImageFromArray(relapse)
 relapse.CopyInformation(ct)
 sitk.WriteImage(relapse, folder_out + 'Relapse.nii.gz')
 
@@ -145,7 +155,7 @@ ax[0][1].imshow(mask.max(0), cmap = 'Reds', alpha=0.3)
 ax[1][0].imshow(pet.max(0),  cmap = 'gray')
 ax[1][1].imshow(pet.max(0), cmap = 'gray')
 ax[1][1].imshow(mask.max(0), cmap = 'Reds', alpha=0.3)
-f.savefig("XXX.png")
+f.savefig("XXX2.png")
 
 exit()
 
