@@ -115,7 +115,7 @@ def read_image(path):
     return img_as_numpy
 
 
-patient_no = 9610     # <----- Change me 
+patient_no = 13544     # <----- Change me 
 
 ct_dir = "/home/denis/samba_share/katrins_data/" + str(patient_no) + "/CT"
 pet_dir = "/home/denis/samba_share/katrins_data/"+ str(patient_no) +"/PET"
@@ -130,20 +130,20 @@ if not isExist:
 
 ### Concert PET and CT 
 pet = convert_dcm_2_nii_x(pet_dir, folder_out)
-dicom2nifti.convert_directory(ct_dir, folder_out)
-#ct = convert_dcm_2_nii_x(ct_dir, folder_out)
+#dicom2nifti.convert_directory(ct_dir, folder_out)
+ct = convert_dcm_2_nii_x(ct_dir, folder_out)
 
 ### Remove Jason files 
-#ct_js  = glob(folder_out + "*CT*.json")
-#ct_js_rm = ''.join(ct_js)
-#os.remove(ct_js_rm)
+ct_js  = glob(folder_out + "*CT*.json")
+ct_js_rm = ''.join(ct_js)
+os.remove(ct_js_rm)
 pet_js = glob(folder_out + "*PET*.json")
 pet_js_rm = ''.join(pet_js)
 os.remove(pet_js_rm)
 
 
 ### Path to CT and PET files
-ct_nii_dir  = glob(folder_out + "*ct*.nii.gz")  #-----> change
+ct_nii_dir  = glob(folder_out + "*CT*.nii.gz") 
 ct_nii_dir = ''.join(ct_nii_dir)
 pet_nii_dir  = glob(folder_out + "*PET*.nii.gz")
 pet_nii_dir = ''.join(pet_nii_dir)
@@ -157,8 +157,8 @@ gtv.CopyInformation(ct)
 sitk.WriteImage(gtv, folder_out + 'GTV.nii.gz')
 
 ### Get the Relapses
-"""
-relapse = get_struct_image(ct_dir, 'Relapse Volume')  # <----- Change me 
+
+relapse = get_struct_image(ct_dir, 'Relapse volume')  # <----- Change me 
 relapse.CopyInformation(ct)
 """
 relapse1 = get_struct_image(ct_dir, 'Relapse deformed_cau')        # <----- Change me 
@@ -176,7 +176,7 @@ BinThreshImFilt.SetOutsideValue(0)
 BinThreshImFilt.SetInsideValue(1)
 relapse = BinThreshImFilt.Execute(Im)
 relapse.CopyInformation(ct)
-
+"""
 sitk.WriteImage(relapse, folder_out + 'Relapse.nii.gz')
 
 
@@ -190,26 +190,39 @@ relapse_nii_dir = ''.join(relapse_nii_dir)
 
 ### 4 Remove slices if needed 
 # If one extra slices
+"""
 ct_crop = sitk.ReadImage(ct_nii_dir)[:, :, 1:]
 gtv_crop = sitk.ReadImage(gtv_nii_dir)[:,:,1:]
 relapse_crop = sitk.ReadImage(relapse_nii_dir)[:,:,1:]
-
-
 sitk.WriteImage(ct_crop, ct_nii_dir)
 sitk.WriteImage(gtv_crop, folder_out + 'GTV.nii.gz')
 sitk.WriteImage(relapse_crop, folder_out + 'Relapse.nii.gz')
+"""
+# If odd
+pet_crop = sitk.ReadImage(pet_nii_dir)[:,:,356:]
+sitk.WriteImage(pet_crop, pet_nii_dir)
+
+
 
 
 print(f'SIZE:')
 print(f'CT: \t{ct.GetSize()} \nPET: \t{pet.GetSize()} \nGTV: \t{gtv.GetSize()} \nRelapse: \t{relapse.GetSize()}')
 print('-' * 40)
-
-print("")
-
-print(f'SIZE:')
-print(f'CT: \t{ct_crop.GetSize()} \nPET: \t{pet.GetSize()} \nGTV: \t{gtv_crop.GetSize()} \nRelapse: \t{relapse_crop.GetSize()}')
+print(f'SPACING:')
+print(f'CT: \t{ct.GetSpacing()} \nPET: \t{pet.GetSpacing()} \nGTV: \t{gtv.GetSpacing()} \nRelapse: \t{relapse.GetSpacing()}') 
 print('-' * 40)
 
+print(" After")
+print(pet_crop.GetSize())
+print(pet_crop.GetSpacing())
+"""
+print(f'SIZE:')
+print(f'CT: \t{ct_crop.GetSize()} \nPET: \t{pet.GetSize()} \nGTV: \t{gtv_crop.GetSize()} \nRelapse: \t{relapse_crop.GetSize()}')
+print('-' * 50)
+print(f'SPACING:')
+print(f'CT: \t{img_ct.GetSpacing()} \nPET: \t{img_pt.GetSpacing()} \nMask: \t{mask.GetSpacing()}') 
+print('-' * 50)
+"""
 
 exit()
 
