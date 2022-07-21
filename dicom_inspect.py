@@ -60,7 +60,7 @@ def get_struct_image(dicom_series_path, struct_name):
     # This may require a pre-processing or manual checking to ensure that
     # your structs of interest all have the same names.
     mask = struct_to_mask(dicom_series_path, dicom_files, struct_name)
-    mask = np.flip(mask, axis=0)
+    #mask = np.flip(mask, axis=0)
     if not np.any(mask):
         raise Exception(f'Struct with name {struct_name} was not found in {dicom_series_path}'
                         ' or did not contain any delineation data.'
@@ -114,14 +114,22 @@ ct_nii_dir = ''.join(ct_nii_dir)
 pet_nii_dir  = glob(folder_out + "*PET*nii.gz")
 pet_nii_dir = ''.join(pet_nii_dir)
 
+gtv = get_struct_image(ct_dir, 'GTV Radiolog')
+gtv = sitk.GetImageFromArray(gtv)
+gtv.CopyInformation(ct)
+sitk.WriteImage(gtv, folder_out + 'GTV.nii.gz')
+
+relapse = get_struct_image(ct_dir, 'Relapse deformed')
+relapse = sitk.GetImageFromArray(relapse)
+relapse.CopyInformation(ct)
+sitk.WriteImage(relapse, folder_out + 'Relapse.nii.gz')
+
 gtv_nii_dir  = glob(folder_out + "*GTV.nii.gz")
 gtv_nii_dir = ''.join(gtv_nii_dir)
-
 
 ct  = sitk.ReadImage(ct_nii_dir)
 pet = sitk.ReadImage(pet_nii_dir)
 mask = sitk.ReadImage(gtv_nii_dir)
-
 
 ct = sitk.GetArrayFromImage(ct)
 pet = sitk.GetArrayFromImage(pet)
@@ -136,19 +144,11 @@ ax[0][1].imshow(mask.max(0), cmap = 'Reds', alpha=0.3)
 ax[1][0].imshow(pet.max(0),  cmap = 'gray')
 ax[1][1].imshow(pet.max(0), cmap = 'gray')
 ax[1][1].imshow(mask.max(0), cmap = 'Reds', alpha=0.3)
-f.savefig("matplotlib_7229.png")
+f.savefig("XXX.png")
 
 exit()
 
-gtv = get_struct_image(ct_dir, 'GTV Radiolog')
-gtv = sitk.GetImageFromArray(gtv)
-gtv.CopyInformation(ct)
-sitk.WriteImage(gtv, folder_out + 'GTV.nii.gz')
 
-relapse = get_struct_image(ct_dir, 'Relapse deformed')
-relapse = sitk.GetImageFromArray(relapse)
-relapse.CopyInformation(ct)
-sitk.WriteImage(relapse, folder_out + 'Relapse.nii.gz')
 
 
 
