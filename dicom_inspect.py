@@ -115,7 +115,7 @@ def read_image(path):
     return img_as_numpy
 
 
-patient_no = 13282   # <----- Change me 
+patient_no = 13503   # <----- Change me 
 
 ct_dir = "/home/denis/samba_share/katrins_data/" + str(patient_no) + "/CT"
 pet_dir = "/home/denis/samba_share/katrins_data/"+ str(patient_no) +"/PET"
@@ -174,7 +174,7 @@ sitk.WriteImage(gtv, folder_out + 'GTV.nii.gz')
 
 ### Get the Relapses
 
-relapse = get_struct_image(ct_dir, 'Relapse volume')  # <----- Change me 
+relapse = get_struct_image(ct_dir, 'Relapse_deformed')  # <----- Change me 
 relapse.CopyInformation(ct)
 """
 relapse1 = get_struct_image(ct_dir, 'Relapse volume_i')        # <----- Change me 
