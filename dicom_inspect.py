@@ -115,11 +115,11 @@ def read_image(path):
     return img_as_numpy
 
 
-patient_no = 14809   # <----- Change me 
+patient_no = 15174   # <----- Change me 
 
 
-#ct_dir = "/home/denis/samba_share/katrins_data/" + str(patient_no) + "/CT"
-ct_dir = "/home/denis/samba_share/katrins_data/" + str(patient_no) + "/14809_CT_Reexport"
+ct_dir = "/home/denis/samba_share/katrins_data/" + str(patient_no) + "/CT"
+#ct_dir = "/home/denis/samba_share/katrins_data/" + str(patient_no) + "/14809_CT_Reexport"
 pet_dir = "/home/denis/samba_share/katrins_data/"+ str(patient_no) +"/PET"
 
 #Create output folder 
@@ -129,7 +129,7 @@ if not isExist:
     os.makedirs(folder_out)
     print("The new directory is created!")
 
-"""
+
 ### Convert PET and CT 
 ## CT
 
@@ -159,7 +159,7 @@ os.remove(pet_js_rm)
 #os.remove(ct_js_rm)
 
 
-"""
+
 ### Path to CT and PET files
 ct_nii_dir  = glob(folder_out + "*CT*.nii.gz") 
 ct_nii_dir = ''.join(ct_nii_dir)
@@ -168,18 +168,18 @@ pet_nii_dir = ''.join(pet_nii_dir)
 ct  = sitk.ReadImage(ct_nii_dir)
 pet  = sitk.ReadImage(pet_nii_dir)
 
-"""
+
 ### Get the GTV
 gtv = get_struct_image(ct_dir, 'GTV')                  # <----- Change me 
 #gtv = get_struct_image(ct_dir, 'GTV Radiolog')
 gtv.CopyInformation(ct)
 sitk.WriteImage(gtv, folder_out + 'GTV.nii.gz')
-"""
 
+"""
 ### Get the Relapses
 relapse = get_struct_image(ct_dir, 'Relapse_deformed')  # <----- Change me 
 relapse.CopyInformation(ct)
-"""
+
 relapse1 = get_struct_image(ct_dir, 'Relapse Volume_N')        # <----- Change me 
 relapse1 = sitk.GetArrayFromImage(relapse1)
 relapse2 = get_struct_image(ct_dir, 'Relapse Volume_T')        # <----- Change me 
@@ -197,21 +197,21 @@ BinThreshImFilt.SetOutsideValue(0)
 BinThreshImFilt.SetInsideValue(1)
 relapse = BinThreshImFilt.Execute(Im)
 relapse.CopyInformation(ct)
-"""
-sitk.WriteImage(relapse, folder_out + 'Relapse.nii.gz') 
 
+sitk.WriteImage(relapse, folder_out + 'Relapse.nii.gz') 
+"""
 
 
 
 ### Get path to GTV and Relapse files 
 gtv_nii_dir  = glob(folder_out + "*GTV.nii.gz")
 gtv_nii_dir = ''.join(gtv_nii_dir)
-relapse_nii_dir  = glob(folder_out + "*Relapse.nii.gz")   
-relapse_nii_dir = ''.join(relapse_nii_dir)
+#relapse_nii_dir  = glob(folder_out + "*Relapse.nii.gz")    # MOVV
+#relapse_nii_dir = ''.join(relapse_nii_dir)
 
 ### 4 Remove slices if needed 
 # If one extra slices
-
+"""
 ct_crop = sitk.ReadImage(ct_nii_dir)[:, :, 1:]
 gtv_crop = sitk.ReadImage(gtv_nii_dir)[:,:,1:]
 relapse_crop = sitk.ReadImage(relapse_nii_dir)[:,:,1:]
@@ -219,7 +219,7 @@ sitk.WriteImage(ct_crop, ct_nii_dir)
 sitk.WriteImage(gtv_crop, folder_out + 'GTV.nii.gz')
 sitk.WriteImage(relapse_crop, folder_out + 'Relapse.nii.gz')
 
-"""
+
 # If odd
 pet_crop = sitk.ReadImage(pet_nii_dir)[:,:,266:-71]
 sitk.WriteImage(pet_crop, pet_nii_dir)
