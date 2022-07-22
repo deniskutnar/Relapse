@@ -159,7 +159,7 @@ os.remove(pet_js_rm)
 #os.remove(ct_js_rm)
 
 
-
+"""
 ### Path to CT and PET files
 ct_nii_dir  = glob(folder_out + "*CT*.nii.gz") 
 ct_nii_dir = ''.join(ct_nii_dir)
@@ -167,7 +167,7 @@ pet_nii_dir  = glob(folder_out + "*PET*.nii.gz")
 pet_nii_dir = ''.join(pet_nii_dir)
 ct  = sitk.ReadImage(ct_nii_dir)
 pet  = sitk.ReadImage(pet_nii_dir)
-
+"""
 
 ### Get the GTV
 gtv = get_struct_image(ct_dir, 'GTV')                  # <----- Change me 
@@ -212,12 +212,12 @@ relapse_nii_dir = ''.join(relapse_nii_dir)
 ### 4 Remove slices if needed 
 # If one extra slices
 
-#ct_crop = sitk.ReadImage(ct_nii_dir)[:, :, 1:]
-#gtv_crop = sitk.ReadImage(gtv_nii_dir)[:,:,1:]
-relapse_crop = sitk.ReadImage(relapse_nii_dir)[:,:,1:]
-#sitk.WriteImage(ct_crop, ct_nii_dir)
-#sitk.WriteImage(gtv_crop, folder_out + 'GTV.nii.gz')
-sitk.WriteImage(relapse_crop, folder_out + 'Relapse.nii.gz')
+ct_crop = sitk.ReadImage(ct_nii_dir)[:, :, 1:]
+gtv_crop = sitk.ReadImage(gtv_nii_dir)[:,:,1:]
+#relapse_crop = sitk.ReadImage(relapse_nii_dir)[:,:,1:]
+sitk.WriteImage(ct_crop, ct_nii_dir)
+sitk.WriteImage(gtv_crop, folder_out + 'GTV.nii.gz')
+#sitk.WriteImage(relapse_crop, folder_out + 'Relapse.nii.gz')
 
 """
 # If odd
