@@ -168,7 +168,7 @@ ct  = sitk.ReadImage(ct_nii_dir)
 pet  = sitk.ReadImage(pet_nii_dir)
 
 ### Get the GTV
-gtv = get_struct_image(ct_dir, 'GTV')                  # <----- Change me 
+gtv = get_struct_image(ct_dir, 'GTV_T')                  # <----- Change me 
 #gtv = get_struct_image(ct_dir, 'GTV Radiolog')
 gtv.CopyInformation(ct)
 sitk.WriteImage(gtv, folder_out + 'GTV.nii.gz')
