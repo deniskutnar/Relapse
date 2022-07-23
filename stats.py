@@ -69,6 +69,10 @@ print(len(gtv_dirs))
 print(len(relapse_dirs))
 
 
+print(ct_dirs[0][37:])
+
+
+
 exit()
 
 
