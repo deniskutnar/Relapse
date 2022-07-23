@@ -84,10 +84,10 @@ for i in range(len(ct_dirs)):
 
 
 
-    title = ct_dirs[i][37:42]
+    title = ct_dirs[i][37:]
 
     f, ax = plt.subplots(2, 2, figsize=(10, 10))
-    f.suptitle(title, fontsize=16)
+    f.suptitle(str(title,) fontsize=16)
     ax[0][0].imshow(ct.max(0),  cmap = 'gray_r')
     ax[0][0].imshow(pet.max(0),  cmap = 'Reds', alpha=0.3)
     ax[0][1].imshow(ct.max(0), cmap = 'gray_r')
