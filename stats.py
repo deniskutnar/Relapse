@@ -68,8 +68,8 @@ print(len(pet_dirs))
 print(len(gtv_dirs))
 print(len(relapse_dirs))
 
-#for f in range(len(ct_dirs)):
-for f in range(1):
+for f in range(len(ct_dirs)):
+#for f in range(1):
 
     ct =  sitk.ReadImage(ct_dirs[f])
     pet = sitk.ReadImage(pet_dirs[f])
