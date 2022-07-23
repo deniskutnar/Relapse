@@ -71,10 +71,18 @@ print(len(relapse_dirs))
 #for f in range(len(ct_dirs)):
 for f in range(1):
 
-    ct = read_image(ct_dirs)
-    pet = read_image(pet_dirs)
-    gtv = read_image(gtv_dirs)
-    relapse = read_image(relapse_dirs)
+    ct =  sitk.ReadImage(ct_dirs[f])
+    pet = sitk.ReadImage(pet_dirs[f])
+    pet = resize_image_itk(pet, ct, sitk.sitkLinear)
+    gtv = sitk.ReadImage(gtv_dirs[f])
+    relapse = sitk.ReadImage(relapse_dirs[f])
+
+    ct = sitk.GetArrayFromImage(ct)
+    pet = sitk.GetArrayFromImage(pet)
+    gtv = sitk.GetArrayFromImage(gtv)
+    relapse = sitk.GetArrayFromImage(relapse)
+
+
 
     title = ct_dirs[f][37:42]
 
