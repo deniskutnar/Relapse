@@ -19,18 +19,6 @@ from skimage.color import gray2rgb
 import matplotlib.pyplot as plt
 
 
-# Step 1: Iterate through the slices in the PET image and print the slice location and max suv value.
-# Step 2: take note of the slice location of a slice with a high suv value (max if obvious)
-# Step 3: Iterate through the CT image slices and see if a slice is available with the corresponding slice location to the PET slice.
-# Step 4: Show the CT slice and PET slice in a combined way (using code that shows them in RGB)
-#         This should have the same problem as in the slices may not align exactly.
-# Step 5: Inspect the properties of the dicom fdataset object to get the spacing information
-#          including spacing information in x and y.
-#          Also try to find the information that tells us about the slice position relative to patient origin in x and y.
-#          The idea is to inspect the dicom data and read the dicom documentation to try to figure out how
-#          the data should be cropped and scaled to make it consistent.
-
-
 
 
 # 1. convert CT with 'Dcm2niix'
@@ -138,7 +126,6 @@ ct_js_mv = ''.join(ct_js_mv)
 os.rename(ct_js_mv, folder_out + "CT_CT.nii.gz")
 #ct = convert_dcm_2_nii_x(ct_dir, folder_out)
 
-
 ## PET
 pet = convert_dcm_2_nii_x(pet_dir, folder_out)
 pet_js_mv  = glob(folder_out + "*PET*.nii.gz")
@@ -150,13 +137,9 @@ pet_js = glob(folder_out + "*PET*.json")
 pet_js_rm = ''.join(pet_js)
 os.remove(pet_js_rm)
 
-
-
-
 #ct_js  = glob(folder_out + "*CT*.json")
 #ct_js_rm = ''.join(ct_js)
 #os.remove(ct_js_rm)
-
 
 
 ### Path to CT and PET files
@@ -248,7 +231,6 @@ print(f'CT: \t{ct_crop.GetSpacing()} \nPET: \t{pet.GetSpacing()} \nGTV: \t{gtv.G
 print('-' * 50)
 
 
-exit()
 
 
 
@@ -267,55 +249,6 @@ exit()
 
 
 
-
-
-
-pet = sitk.ReadImage(pet_nii_dir)
-pet = resize_image_itk(pet, ct, sitk.sitkLinear)
-mask = sitk.ReadImage(gtv_nii_dir)
-ct = sitk.GetArrayFromImage(ct)
-pet = sitk.GetArrayFromImage(pet)
-mask = sitk.GetArrayFromImage(mask)
-
-f, ax = plt.subplots(2, 2, figsize=(10, 10))
-ax[0][0].imshow(ct.max(0),  cmap = 'gray')
-ax[0][0].imshow(pet.max(0),  cmap = 'Reds', alpha=0.3)
-ax[0][1].imshow(ct.max(0), cmap = 'gray')
-ax[0][1].imshow(mask.max(0), cmap = 'Reds', alpha=0.3)
-ax[1][0].imshow(pet.max(0),  cmap = 'gray')
-ax[1][1].imshow(pet.max(0), cmap = 'gray')
-ax[1][1].imshow(mask.max(0), cmap = 'Reds', alpha=0.3)
-f.savefig("XXX_res.png")
-
-print(f'SIZE:')
-print(f'CT: \t{ct.GetSize()} \nPET: \t{pet.GetSize()} \nGTV: \t{gtv.GetSize()} \nRelapse: \t{relapse.GetSize()}')
-print('-' * 40)
-print(f'SPACING:')
-print(f'CT: \t{ct.GetSpacing()} \nPET: \t{pet.GetSpacing()} \nGTV: \t{gtv.GetSpacing()} \nRelapse: \t{relapse.GetSpacing()}') 
-print('-' * 40)
-print(f'ORIGIN:')
-print(f'CT: \t{ct.GetOrigin()} \nPET: \t{pet.GetOrigin()} \nGTV: \t{gtv.GetOrigin()} \nRelapse: \t{relapse.GetOrigin()}') 
-print('-' * 40)
-print(f'DIRECTION:')
-print(f'CT: \t{ct.GetDirection()} \nPET: \t{pet.GetDirection()} \nGTV: \t{gtv.GetDirection()} \nRelapse: \t{relapse.GetDirection()}') 
-
-print("")
-
-### Resample 
-pet_res = resize_image_itk(pet, ct, sitk.sitkLinear)
-
-
-print(f'SIZE:')
-print(f'CT: \t{ct.GetSize()} \nPET: \t{pet_res.GetSize()} \nGTV: \t{gtv.GetSize()} \nRelapse: \t{relapse.GetSize()}')
-print('-' * 40)
-print(f'SPACING:')
-print(f'CT: \t{ct.GetSpacing()} \nPET: \t{pet_res.GetSpacing()} \nGTV: \t{gtv.GetSpacing()} \nRelapse: \t{relapse.GetSpacing()}') 
-print('-' * 40)
-print(f'ORIGIN:')
-print(f'CT: \t{ct.GetOrigin()} \nPET: \t{pet_res.GetOrigin()} \nGTV: \t{gtv.GetOrigin()} \nRelapse: \t{relapse.GetOrigin()}') 
-print('-' * 40)
-print(f'DIRECTION:')
-print(f'CT: \t{ct.GetDirection()} \nPET: \t{pet_res.GetDirection()} \nGTV: \t{gtv.GetDirection()} \nRelapse: \t{relapse.GetDirection()}') 
 
 
 
