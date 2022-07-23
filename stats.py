@@ -99,7 +99,7 @@ for i in range(len(ct_dirs)):
     ax[1][1].imshow(gtv.max(0), cmap = 'Reds', alpha=0.4)
     ax[1][1].imshow(relapse.max(0), cmap = 'Blues', alpha=0.4)
 
-    f.savefig("plots/"+ str(f) + ".png")
+    f.savefig("plots/"+ str(i) + ".png")
     plt.close()
     print(i)
 
