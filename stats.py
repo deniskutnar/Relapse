@@ -68,14 +68,14 @@ print(len(pet_dirs))
 print(len(gtv_dirs))
 print(len(relapse_dirs))
 
-for f in range(len(ct_dirs)):
+for i in range(len(ct_dirs)):
 #for f in range(1):
 
-    ct =  sitk.ReadImage(ct_dirs[f])
-    pet = sitk.ReadImage(pet_dirs[f])
+    ct =  sitk.ReadImage(ct_dirs[i])
+    pet = sitk.ReadImage(pet_dirs[i])
     pet = resize_image_itk(pet, ct, sitk.sitkLinear)
-    gtv = sitk.ReadImage(gtv_dirs[f])
-    relapse = sitk.ReadImage(relapse_dirs[f])
+    gtv = sitk.ReadImage(gtv_dirs[i])
+    relapse = sitk.ReadImage(relapse_dirs[i])
 
     ct = sitk.GetArrayFromImage(ct)
     pet = sitk.GetArrayFromImage(pet)
@@ -84,7 +84,7 @@ for f in range(len(ct_dirs)):
 
 
 
-    title = ct_dirs[f][37:42]
+    title = ct_dirs[i][37:42]
 
     f, ax = plt.subplots(2, 2, figsize=(10, 10))
     f.suptitle(title, fontsize=16)
@@ -100,8 +100,8 @@ for f in range(len(ct_dirs)):
     ax[1][1].imshow(relapse.max(0), cmap = 'Blues', alpha=0.4)
 
     f.savefig("plots/"+ title + ".png")
-    plt.clf()
-    print(f)
+    f.close()
+    print(i)
 
 exit()
 
