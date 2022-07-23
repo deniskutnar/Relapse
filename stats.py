@@ -100,7 +100,7 @@ for i in range(len(ct_dirs)):
     ax[1][1].imshow(relapse.max(0), cmap = 'Blues', alpha=0.4)
 
     f.savefig("plots/"+ title + ".png")
-    f.close()
+    plt.close()
     print(i)
 
 exit()
