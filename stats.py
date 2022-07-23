@@ -68,10 +68,30 @@ print(len(pet_dirs))
 print(len(gtv_dirs))
 print(len(relapse_dirs))
 
+#for f in range(len(ct_dirs)):
+for f in range(1):
 
-print(ct_dirs[0][37:42])
+    ct = read_image(ct_dirs)
+    pet = read_image(pet_dirs)
+    gtv = read_image(gtv_dirs)
+    relapse = read_image(relapse_dirs)
 
+    title = ct_dirs[f][37:42]
 
+    f, ax = plt.subplots(2, 2, figsize=(10, 10))
+    f.suptitle(title, fontsize=16)
+    ax[0][0].imshow(ct.max(0),  cmap = 'gray_r')
+    ax[0][0].imshow(pet.max(0),  cmap = 'Reds', alpha=0.3)
+    ax[0][1].imshow(ct.max(0), cmap = 'gray_r')
+    ax[0][1].imshow(gtv.max(0), cmap = 'Reds', alpha=0.3)
+    ax[0][1].imshow(relapse.max(0), cmap = 'Blues', alpha=0.3)
+
+    ax[1][0].imshow(pet.max(0),  cmap = 'gray_r')
+    ax[1][1].imshow(pet.max(0), cmap = 'gray_r')
+    ax[1][1].imshow(gtv.max(0), cmap = 'Reds', alpha=0.4)
+    ax[1][1].imshow(relapse.max(0), cmap = 'Blues', alpha=0.4)
+
+    f.savefig("plots/"+ title + ".png")
 
 exit()
 
