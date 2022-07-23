@@ -3,7 +3,7 @@ import SimpleITK as sitk
 import numpy as np
 from glob import glob
 import shutil
-from pydicom import dcmread
+
 import matplotlib.pyplot as plt
 import skimage
 from skimage.io import imsave
@@ -11,6 +11,10 @@ from skimage.transform import resize
 from skimage.color import gray2rgb
 
 
+# Step 1: Find CT, PET, GTV, Relapse with glob 
+# Step 2: Print shape of all images in numpy
+# Step 3: resample PET --> CT 
+# Print figures to overlay CT and PET | GTV and Relapse 
 
 
 
@@ -52,6 +56,14 @@ def read_image(path):
     img = sitk.ReadImage(path)
     img_as_numpy = sitk.GetArrayFromImage(img).astype('float32')
     return img_as_numpy
+
+
+ct_dirs = glob("/home/denis/samba_share/katrins_data/*/Processed/CT_CT*.nii.gz")
+print(ct_dirs)
+print(len(ct_dirs))
+
+
+exit()
 
 
 
