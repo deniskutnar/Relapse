@@ -28,16 +28,22 @@ pet_dirs = []
 gtv_dirs = []
 relapse_dirs = []
 for f in range(len(ct_dirs)):
-    base = ct_dirs[f][:-13]
-    print(base)
-    #pet = os.path.join(os.path.dirname(os.path.dirname(f)), 'imagesTr/'+ pid + '__PT.nii.gz')
-    #ct = os.path.join(os.path.dirname(os.path.dirname(f)), 'imagesTr/'+ pid + '__CT.nii.gz')
+    base = ct_dirs[f][:-12]
+    pet = base + "PET_PET.nii.gz"
+    gtv = base + "GTV.nii.gz"
+    relapse = base + "Relapse.nii.gz"
 
+    if os.path.exists(pet):
+        pet_dirs.append(pet)
+    if os.path.exists(gtv):
+        gtv_dirs.append(gtv)
+    if os.path.exists(relapse):
+        relapse_dirs.append(relapse)
 
-    #if os.path.exists(pet):
-        #pet_dirs.append(pet)
-    #if os.path.exists(ct):
-        #ct_dirs.append(ct)
+print(len(ct_dirs))
+print(len(pet_dirs))
+print(len(gtv_dirs))
+print(len(relapse_dirs))
 
 
 
