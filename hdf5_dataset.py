@@ -45,6 +45,11 @@ print(len(pet_dirs))
 print(len(gtv_dirs))
 print(len(relapse_dirs))
 
+print(ct_dirs[2])
+print(pet_dirs[2])
+print(gtv_dirs[2])
+print(relapse_dirs[2])
+
 
 
 
