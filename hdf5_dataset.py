@@ -30,4 +30,4 @@ print(ct_dirs[0])
 
 ### Shuffle dirs
 ct_dirs = random.shuffle(ct_dirs)
-print(ct_dirs[0])
+print(ct_dirs)
