@@ -3,7 +3,7 @@ import torch
 import torchvision
 import numpy as np
 import SimpleITK as sitk
-import glob
+
 
 import torch.nn as nn
 import nibabel as nib
