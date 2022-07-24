@@ -57,12 +57,17 @@ gtv_dirs_test = gtv_dirs[30:]
 relapse_dirs_test = relapse_dirs[30:]
 
 
+print(len(ct_dirs_ + dataset))
+exit()
+
 ### HDF5 Train
 
-f = h5py.File("train_dataset.hdf5", "w")
+dataset = "val"
+
+f = h5py.File(dataset + "_dataset.hdf5", "w")
 ptg = f.create_group('patients')
 
-for i in range(len(ct_dirs_train)):
+for i in range(len(ct_dirs_ + dataset)):
     # Create datastructure inside the HDF5
     pt_fol = ptg.create_group('{:03d}'.format(i))
     pt_mask = pt_fol.create_group('masks')
@@ -97,7 +102,7 @@ for i in range(len(ct_dirs_train)):
     pt_points.create_dataset('relapse_loc', data=relapse_loc, chunks=True, compression="lzf")
     
     print(i)
-    
+
 f.close()
 
 
