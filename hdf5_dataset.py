@@ -40,20 +40,20 @@ for f in range(len(ct_dirs)):
 
 ### Split: 23 : 7 : 7 (37)
 
-ct_dirs_train = ct_dirs[:22]
-pet_dirs_train = pet_dirs[:22]
-gtv_dirs_train = gtv_dirs[:22]
-relapse_dirs_train = relapse_dirs[:22]
+ct_dirs_train = ct_dirs[:23]
+pet_dirs_train = pet_dirs[:23]
+gtv_dirs_train = gtv_dirs[:23]
+relapse_dirs_train = relapse_dirs[:23]
 
-ct_dirs_val = ct_dirs[22:29]
-pet_dirs_val = pet_dirs[22:29]
-gtv_dirs_val = gtv_dirs[22:29]
-relapse_dirs_val = relapse_dirs[22:29]
+ct_dirs_val = ct_dirs[23:30]
+pet_dirs_val = pet_dirs[23:30]
+gtv_dirs_val = gtv_dirs[23:30]
+relapse_dirs_val = relapse_dirs[23:30]
 
-ct_dirs_test = ct_dirs[29:]
-pet_dirs_test = pet_dirs[29:]
-gtv_dirs_test = gtv_dirs[29:]
-relapse_dirs_test = relapse_dirs[29:]
+ct_dirs_test = ct_dirs[30:]
+pet_dirs_test = pet_dirs[30:]
+gtv_dirs_test = gtv_dirs[30:]
+relapse_dirs_test = relapse_dirs[30:]
 
 print(len(ct_dirs_train))
 print(len(ct_dirs_val))
