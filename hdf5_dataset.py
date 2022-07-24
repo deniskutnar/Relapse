@@ -26,7 +26,7 @@ random.shuffle(ct_dirs)
 
 pet_dirs = []
 gtv_dirs = []
-relapse_dirs
+relapse_dirs = []
 for idx,f in enumerate(ct_dirs):
     base = os.path.basename(f).split('.nii.gz')[0]
     
