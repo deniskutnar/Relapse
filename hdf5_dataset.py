@@ -6,7 +6,7 @@ import numpy as np
 from torch.utils.data import Dataset, DataLoader
 from torchvision import transforms, utils
 import SimpleITK as sitk
-import glob
+from glob import glob
 
 import torch.nn as nn
 import nibabel as nib
