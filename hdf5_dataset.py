@@ -12,8 +12,9 @@ import torch.nn as nn
 import nibabel as nib
 import shutil
 import h5py
-
 import random
+
+from utils import * 
 
 
 ct_dirs = glob("/home/denis/samba_share/katrins_data/*/Processed/CT_CT*.nii.gz")
@@ -55,9 +56,57 @@ pet_dirs_test = pet_dirs[30:]
 gtv_dirs_test = gtv_dirs[30:]
 relapse_dirs_test = relapse_dirs[30:]
 
-print(len(ct_dirs_train))
-print(len(ct_dirs_val))
-print(len(ct_dirs_test))
+
+### HDF5 Train
+
+f = h5py.File("train_dataset.hdf5", "w")
+ptg = f.create_group('patients')
+
+for i in range(len(ct_dirs_train)):
+    # Create datastructure inside the HDF5
+    pt_fol = ptg.create_group('{:03d}'.format(i))
+    pt_mask = pt_fol.create_group('masks')
+    pt_img = pt_fol.create_group('images')
+    pt_points = pt_fol.create_group('points')
+    
+    ## resample PET --> CT
+    t_img = sitk.ReadImage(ct_dirs_train[i])
+    o_img = sitk.ReadImage(pet_dirs_train[i])
+    reg_pet = resize_image_itk(o_img, t_img, sitk.sitkLinear)
+    
+    ### loop to go over all file paths
+    # read ct, pet, gtv, relapse
+    ct  = sitk.GetArrayFromImage(t_img).astype('float32')
+    pet = sitk.GetArrayFromImage(reg_pet).astype('float32')
+    gtv = sitk.GetArrayFromImage(sitk.ReadImage(gtv_dirs_train[i]))
+    relapse = sitk.GetArrayFromImage(sitk.ReadImage(relapse_dirs_train[i]))
+    
+    ## Normalise data 
+    ct = normalize_ct(ct)
+    pet = normalize_pt(pet)
+    
+    ## Create points
+    gtv_loc = np.transpose(np.nonzero(gtv))
+    relapse_loc = np.transpose(np.nonzero(relapse))
+    
+    pt_img.create_dataset('ct', data=ct, chunks=True, compression="lzf")
+    pt_img.create_dataset('pet', data=pet, chunks=True, compression="lzf")
+    pt_mask.create_dataset('gtv', data=gtv, chunks=True, compression="lzf")
+    pt_mask.create_dataset('relapse', data=relapse, chunks=True, compression="lzf")
+    pt_points.create_dataset('gtv_loc', data=gtv_loc, chunks=True, compression="lzf")
+    pt_points.create_dataset('relapse_loc', data=relapse_loc, chunks=True, compression="lzf")
+    
+    print(i)
+    
+f.close()
 
 
+
+
+
+
+
+### HDF5 Val
+
+### HDF5 Test
 
