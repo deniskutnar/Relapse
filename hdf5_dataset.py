@@ -57,17 +57,12 @@ gtv_dirs_test = gtv_dirs[30:]
 relapse_dirs_test = relapse_dirs[30:]
 
 
-print(len(ct_dirs_ + dataset))
-exit()
+### HDF5 Train, Val, Test
 
-### HDF5 Train
-
-dataset = "val"
-
-f = h5py.File(dataset + "_dataset.hdf5", "w")
+f = h5py.File("val_dataset.hdf5", "w")
 ptg = f.create_group('patients')
 
-for i in range(len(ct_dirs_ + dataset)):
+for i in range(len(ct_dirs_val)):
     # Create datastructure inside the HDF5
     pt_fol = ptg.create_group('{:03d}'.format(i))
     pt_mask = pt_fol.create_group('masks')
@@ -75,16 +70,16 @@ for i in range(len(ct_dirs_ + dataset)):
     pt_points = pt_fol.create_group('points')
     
     ## resample PET --> CT
-    t_img = sitk.ReadImage(ct_dirs_train[i])
-    o_img = sitk.ReadImage(pet_dirs_train[i])
+    t_img = sitk.ReadImage(ct_dirs_val[i])
+    o_img = sitk.ReadImage(pet_dirs_val[i])
     reg_pet = resize_image_itk(o_img, t_img, sitk.sitkLinear)
     
     ### loop to go over all file paths
     # read ct, pet, gtv, relapse
     ct  = sitk.GetArrayFromImage(t_img).astype('float32')
     pet = sitk.GetArrayFromImage(reg_pet).astype('float32')
-    gtv = sitk.GetArrayFromImage(sitk.ReadImage(gtv_dirs_train[i]))
-    relapse = sitk.GetArrayFromImage(sitk.ReadImage(relapse_dirs_train[i]))
+    gtv = sitk.GetArrayFromImage(sitk.ReadImage(gtv_dirs_val[i]))
+    relapse = sitk.GetArrayFromImage(sitk.ReadImage(relapse_dirs_val[i]))
     
     ## Normalise data 
     ct = normalize_ct(ct)
@@ -108,10 +103,4 @@ f.close()
 
 
 
-
-
-
-### HDF5 Val
-
-### HDF5 Test
 
