@@ -17,9 +17,6 @@ import random
 
 
 ct_dirs = glob("/home/denis/samba_share/katrins_data/*/Processed/CT_CT*.nii.gz")
-#pet_dirs = glob("/home/denis/samba_share/katrins_data/*/Processed/PET_PET*.nii.gz")
-#gtv_dirs = glob("/home/denis/samba_share/katrins_data/*/Processed/GTV*.nii.gz")
-#relapse_dirs = glob("/home/denis/samba_share/katrins_data/*/Processed/Relapse*.nii.gz")
 
 ### Shuffle dirs
 random.shuffle(ct_dirs)
@@ -40,18 +37,27 @@ for f in range(len(ct_dirs)):
     if os.path.exists(relapse):
         relapse_dirs.append(relapse)
 
-print(len(ct_dirs))
-print(len(pet_dirs))
-print(len(gtv_dirs))
-print(len(relapse_dirs))
 
-print(ct_dirs[2])
-print(pet_dirs[2])
-print(gtv_dirs[2])
-print(relapse_dirs[2])
+### Split: 23 : 7 : 7 (37)
+
+ct_dirs_train = ct_dirs[:22]
+pet_dirs_train = pet_dirs[:22]
+gtv_dirs_train = gtv_dirs[:22]
+relapse_dirs_train = relapse_dirs[:22]
+
+ct_dirs_val = ct_dirs[22:29]
+pet_dirs_val = pet_dirs[22:29]
+gtv_dirs_val = gtv_dirs[22:29]
+relapse_dirs_val = relapse_dirs[22:29]
+
+ct_dirs_test = ct_dirs[29:]
+pet_dirs_test = pet_dirs[29:]
+gtv_dirs_test = gtv_dirs[29:]
+relapse_dirs_test = relapse_dirs[29:]
+
+print(len(ct_dirs_train))
+print(len(ct_dirs_val))
+print(len(ct_dirs_test))
 
 
-
-
-### Split: 23 : 7 : 7
 
