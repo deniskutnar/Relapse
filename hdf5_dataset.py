@@ -27,7 +27,7 @@ random.shuffle(ct_dirs)
 pet_dirs = []
 gtv_dirs = []
 relapse_dirs = []
-for idx,f in enumerate(ct_dirs):
+for f in range(len(ct_dirs)):
     base = ct_dirs[f][:-13]
     print(base)
     #pet = os.path.join(os.path.dirname(os.path.dirname(f)), 'imagesTr/'+ pid + '__PT.nii.gz')
