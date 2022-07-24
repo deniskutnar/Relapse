@@ -29,5 +29,5 @@ print(len(relapse_dirs))
 print(ct_dirs[0])
 
 ### Shuffle dirs
-ct_dirs = random.shuffle(ct_dirs)
-print(ct_dirs)
+random.shuffle(ct_dirs)
+print(ct_dirs[0])
