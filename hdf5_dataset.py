@@ -34,10 +34,10 @@ for f in range(len(ct_dirs)):
     #ct = os.path.join(os.path.dirname(os.path.dirname(f)), 'imagesTr/'+ pid + '__CT.nii.gz')
 
 
-    if os.path.exists(pet):
-        pet_dirs.append(pet)
-    if os.path.exists(ct):
-        ct_dirs.append(ct)
+    #if os.path.exists(pet):
+        #pet_dirs.append(pet)
+    #if os.path.exists(ct):
+        #ct_dirs.append(ct)
 
 
 
